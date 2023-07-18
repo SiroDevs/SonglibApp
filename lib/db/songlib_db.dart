@@ -1,12 +1,12 @@
 import 'package:drift/drift.dart';
 
-import '../model/tables/db_book_table.dart';
-import '../model/tables/db_draft_table.dart';
-import '../model/tables/db_edit_table.dart';
-import '../model/tables/db_history_table.dart';
-import '../model/tables/db_listed_table.dart';
-import '../model/tables/db_search_table.dart';
-import '../model/tables/db_song_table.dart';
+import '../models/tables/db_book_table.dart';
+import '../models/tables/db_draft_table.dart';
+import '../models/tables/db_edit_table.dart';
+import '../models/tables/db_history_table.dart';
+import '../models/tables/db_listed_table.dart';
+import '../models/tables/db_search_table.dart';
+import '../models/tables/db_song_table.dart';
 import 'dao/book_dao.dart';
 import 'dao/draft_dao.dart';
 import 'dao/edit_dao.dart';

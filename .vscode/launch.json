@@ -7,6 +7,13 @@
         {
             "name": "songlib",
             "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": ["--flavor", "dev", "--target", "lib/main.dart" ]
+        },
+        {
+            "name": "slibWeb",
+            "request": "launch",
             "type": "dart"
         }
     ]

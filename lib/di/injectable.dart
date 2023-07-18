@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../db/songlib_db.dart';
 import '../repository/secure_storage/secure_storage.dart';
-import '../util/env/flavor_config.dart';
+import '../utils/env/flavor_config.dart';
 import 'db/setup_drift_none.dart'
     if (dart.library.io) 'db/setup_drift_io.dart'
     if (dart.library.js) 'db/setup_drift_web.dart';

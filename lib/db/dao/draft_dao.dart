@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../model/base/draft.dart';
-import '../../model/tables/db_draft_table.dart';
-import '../../util/utilities.dart';
+import '../../models/base/draft.dart';
+import '../../models/tables/db_draft_table.dart';
+import '../../utils/utilities.dart';
 import '../songlib_db.dart';
 
 part 'draft_dao.g.dart';

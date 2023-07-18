@@ -7,16 +7,16 @@ import '../db/dao/history_dao.dart';
 import '../db/dao/listed_dao.dart';
 import '../db/dao/search_dao.dart';
 import '../db/dao/song_dao.dart';
-import '../model/base/book.dart';
-import '../model/base/draft.dart';
-import '../model/base/edit.dart';
-import '../model/base/history.dart';
-import '../model/base/historyext.dart';
-import '../model/base/listed.dart';
-import '../model/base/listedext.dart';
-import '../model/base/search.dart';
-import '../model/base/song.dart';
-import '../model/base/songext.dart';
+import '../models/base/book.dart';
+import '../models/base/draft.dart';
+import '../models/base/edit.dart';
+import '../models/base/history.dart';
+import '../models/base/historyext.dart';
+import '../models/base/listed.dart';
+import '../models/base/listedext.dart';
+import '../models/base/search.dart';
+import '../models/base/song.dart';
+import '../models/base/songext.dart';
 
 @lazySingleton
 abstract class DbRepository {
@@ -218,7 +218,7 @@ class DbRepo implements DbRepository {
     final List<SongExt> songs = await songDao.getAllSongs();
     final List<History> histories = await historyDao.getHistories();
     final List<Listed> listeds = await listedDao.getAllListeds();
-    final List<Edit> edits = await editDao.getAllEdits();
+    //final List<Edit> edits = await editDao.getAllEdits();
     for (final song in songs) {
       if (!books.contains(song.book.toString())) {
         for (final history in histories) {

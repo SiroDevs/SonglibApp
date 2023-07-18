@@ -7,8 +7,8 @@ import 'package:drift/native.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../util/env/flavor_config.dart';
-import '../../util/utilities.dart';
+import '../../utils/env/flavor_config.dart';
+import '../../utils/utilities.dart';
 
 Future<DatabaseConnection> createDriftDatabaseConnection(String name) async {
   if (FlavorConfig.isInTest()) {

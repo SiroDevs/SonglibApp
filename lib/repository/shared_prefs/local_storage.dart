@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:icapps_architecture/icapps_architecture.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../model/base/book.dart';
-import '../../model/base/draft.dart';
-import '../../model/base/listed.dart';
-import '../../model/base/songext.dart';
-import '../../util/constants/pref_constants.dart';
+import '../../models/base/book.dart';
+import '../../models/base/draft.dart';
+import '../../models/base/listed.dart';
+import '../../models/base/songext.dart';
+import '../../utils/constants/pref_constants.dart';
 import '../secure_storage/auth_storage.dart';
 
 @lazySingleton

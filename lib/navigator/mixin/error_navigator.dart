@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:icapps_architecture/icapps_architecture.dart';
 
-import '../../widget/provider/data_provider_widget.dart';
+import '../../widgets/provider/data_provider_widget.dart';
 
 abstract class ErrorNavigator {
   String? showError(dynamic error);

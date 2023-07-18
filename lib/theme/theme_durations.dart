@@ -1,4 +1,4 @@
-import '../util/env/flavor_config.dart';
+import '../utils/env/flavor_config.dart';
 
 class ThemeDurations {
   ThemeDurations._();

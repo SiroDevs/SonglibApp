@@ -8,8 +8,8 @@ import 'app.dart';
 import 'di/environments.dart';
 import 'di/injectable.dart';
 import 'theme/theme_data.dart';
-import 'util/env/flavor_config.dart';
-import 'util/web/app_configurator.dart'
+import 'utils/env/flavor_config.dart';
+import 'utils/web/app_configurator.dart'
     if (dart.library.html) 'util/web/app_configurator_web.dart';
 
 L _getLocale<L>(BuildContext context) => AppLocalizations.of(context) as L;

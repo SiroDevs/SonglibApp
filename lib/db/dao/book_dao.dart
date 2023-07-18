@@ -1,8 +1,8 @@
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../model/base/book.dart';
-import '../../model/tables/db_book_table.dart';
+import '../../models/base/book.dart';
+import '../../models/tables/db_book_table.dart';
 import '../songlib_db.dart';
 
 part 'book_dao.g.dart';

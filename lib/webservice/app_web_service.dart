@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:injectable/injectable.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
-import '../../util/constants/api_constants.dart';
-import '../model/responses/parse_resp.dart';
-import '../util/constants/event_constants.dart';
+import '../utils/constants/api_constants.dart';
+import '../models/responses/parse_resp.dart';
+import '../utils/constants/event_constants.dart';
 
 @lazySingleton
 abstract class AppWebService {

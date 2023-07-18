@@ -1,11 +1,11 @@
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../model/base/listed.dart';
-import '../../model/base/listedext.dart';
-import '../../model/base/songext.dart';
-import '../../model/tables/db_listed_table.dart';
-import '../../util/utilities.dart';
+import '../../models/base/listed.dart';
+import '../../models/base/listedext.dart';
+import '../../models/base/songext.dart';
+import '../../models/tables/db_listed_table.dart';
+import '../../utils/utilities.dart';
 import '../songlib_db.dart';
 
 part 'listed_dao.g.dart';

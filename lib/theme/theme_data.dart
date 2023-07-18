@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:icapps_architecture/icapps_architecture.dart';
 
-import '../util/env/flavor_config.dart';
+import '../utils/env/flavor_config.dart';
 import 'theme_colors.dart';
 import 'theme_styles.dart';
 

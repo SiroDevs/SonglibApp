@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../model/base/edit.dart';
-import '../../model/tables/db_edit_table.dart';
-import '../../util/utilities.dart';
+import '../../models/base/edit.dart';
+import '../../models/tables/db_edit_table.dart';
+import '../../utils/utilities.dart';
 import '../songlib_db.dart';
 
 part 'edit_dao.g.dart';

@@ -1,8 +1,8 @@
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../model/base/search.dart';
-import '../../model/tables/db_search_table.dart';
+import '../../models/base/search.dart';
+import '../../models/tables/db_search_table.dart';
 import '../songlib_db.dart';
 
 part 'search_dao.g.dart';

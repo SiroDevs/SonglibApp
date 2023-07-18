@@ -1,28 +1,28 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../view/drafts/draft_editor.dart';
-import '../view/drafts/mobile/draft_presentor.dart';
-import '../view/drafts/pc/draft_presentor_pc.dart';
-import '../view/home/home_screen.dart';
-import '../view/home/home_screen_web.dart';
-import '../view/info/donation_screen.dart';
-import '../view/info/helpdesk_screen.dart';
-import '../view/lists/list_view_screen.dart';
-import '../view/manage/settings_screen.dart';
-import '../view/info/onboarding_screen.dart';
-import '../view/selection/progress_screen.dart';
-import '../view/selection/selection_screen.dart';
-import '../view/songs/mobile/song_editor.dart';
-import '../view/songs/pc/song_editor_pc.dart';
-import '../view/songs/pc/song_presentor_pc.dart';
-import '../view/songs/mobile/song_presentor.dart';
-import '../view/splash_screen.dart';
-import '../util/env/flavor_config.dart';
-import '../view/user/signin_screen.dart';
-import '../view/user/signup_screen.dart';
-import '../view/user/user_screen.dart';
-import '../widget/general/text_scale_factor.dart';
+import '../views/drafts/draft_editor.dart';
+import '../views/drafts/mobile/draft_presentor.dart';
+import '../views/drafts/pc/draft_presentor_pc.dart';
+import '../views/home/home_screen.dart';
+import '../views/home/home_screen_web.dart';
+import '../views/info/donation_screen.dart';
+import '../views/info/helpdesk_screen.dart';
+import '../views/lists/list_view_screen.dart';
+import '../views/manage/settings_screen.dart';
+import '../views/info/onboarding_screen.dart';
+import '../views/selection/progress_screen.dart';
+import '../views/selection/selection_screen.dart';
+import '../views/songs/mobile/song_editor.dart';
+import '../views/songs/pc/song_editor_pc.dart';
+import '../views/songs/pc/song_presentor_pc.dart';
+import '../views/songs/mobile/song_presentor.dart';
+import '../views/splash_screen.dart';
+import '../utils/env/flavor_config.dart';
+import '../views/user/signin_screen.dart';
+import '../views/user/signup_screen.dart';
+import '../views/user/user_screen.dart';
+import '../widgets/general/text_scale_factor.dart';
 import 'main_navigation.dart';
 
 class MainNavigator extends StatefulWidget {
@@ -43,7 +43,7 @@ class MainNavigator extends StatefulWidget {
         throw FlutterError(
             'MainNavigation operation requested with a context that does not include a MainNavigation.\n'
             'The context used to push or pop routes from the MainNavigation must be that of a '
-            'widget that is a descendant of a MainNavigator widget.');
+            'widgets that is a descendant of a MainNavigator widget.');
       }
       return true;
     }());

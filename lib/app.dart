@@ -8,10 +8,10 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'navigator/main_navigator.dart';
 import 'theme/theme_data.dart';
-import 'util/constants/api_constants.dart';
-import 'util/env/flavor_config.dart';
-import 'vm/global_vm.dart';
-import 'widget/provider/provider_widget.dart';
+import 'utils/constants/api_constants.dart';
+import 'utils/env/flavor_config.dart';
+import 'vms/global_vm.dart';
+import 'widgets/provider/provider_widget.dart';
 
 void startApp() async {
   WidgetsFlutterBinding.ensureInitialized();
