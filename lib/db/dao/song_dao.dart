@@ -112,7 +112,7 @@ class _SongDao extends DatabaseAccessor<SongLibDB>
 
   @override
   Future<void> updateSong(SongExt song) =>
-      (update(db.dbSongTable)..where((row) => row.id.equals(song.id))).write(
+      (update(db.dbSongTable)..where((row) => row.id.equals(song.id!))).write(
         DbSongTableCompanion(
           book: Value(song.book!),
           songNo: Value(song.songNo!),
@@ -129,5 +129,5 @@ class _SongDao extends DatabaseAccessor<SongLibDB>
 
   @override
   Future<void> deleteSong(SongExt song) =>
-      (delete(db.dbSongTable)..where((row) => row.id.equals(song.id))).go();
+      (delete(db.dbSongTable)..where((row) => row.id.equals(song.id!))).go();
 }

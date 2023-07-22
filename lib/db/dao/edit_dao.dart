@@ -32,18 +32,15 @@ class _EditDao extends DatabaseAccessor<SongLibDB>
     return results
         .map(
           (result) => Edit(
-            id: const IntType().mapFromDatabaseResponse(result.id)!,
-            song:
-                const StringType().mapFromDatabaseResponse(result.song)!,
-            book: const IntType().mapFromDatabaseResponse(result.book)!,
-            songNo: const IntType().mapFromDatabaseResponse(result.songNo)!,
-            title: const StringType().mapFromDatabaseResponse(result.title)!,
-            content:
-                const StringType().mapFromDatabaseResponse(result.content)!,
-            alias: const StringType().mapFromDatabaseResponse(result.alias)!,
-            key: const StringType().mapFromDatabaseResponse(result.key)!,
-            createdAt:
-                const StringType().mapFromDatabaseResponse(result.createdAt)!,
+            id: result.id,
+            song: result.song,
+            book: result.book,
+            songNo: result.songNo,
+            title: result.title,
+            content: result.content,
+            alias: result.alias,
+            key: result.key,
+            createdAt: result.createdAt,
           ),
         )
         .toList();
@@ -64,5 +61,5 @@ class _EditDao extends DatabaseAccessor<SongLibDB>
 
   @override
   Future<void> deleteEdit(Edit edit) =>
-      (delete(db.dbEditTable)..where((row) => row.id.equals(edit.id))).go();
+      (delete(db.dbEditTable)..where((row) => row.id.equals(edit.id!))).go();
 }

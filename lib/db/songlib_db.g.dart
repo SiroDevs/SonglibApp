@@ -2,11 +2,197 @@
 
 part of 'songlib_db.dart';
 
-// **************************************************************************
-// MoorGenerator
-// **************************************************************************
-
 // ignore_for_file: type=lint
+class $DbBookTableTable extends DbBookTable
+    with TableInfo<$DbBookTableTable, DbBook> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DbBookTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _objectIdMeta =
+      const VerificationMeta('objectId');
+  @override
+  late final GeneratedColumn<String> objectId = GeneratedColumn<String>(
+      'object_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _enabledMeta =
+      const VerificationMeta('enabled');
+  @override
+  late final GeneratedColumn<bool> enabled =
+      GeneratedColumn<bool>('enabled', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("enabled" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
+  static const VerificationMeta _bookNoMeta = const VerificationMeta('bookNo');
+  @override
+  late final GeneratedColumn<int> bookNo = GeneratedColumn<int>(
+      'book_no', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+      'title', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _subTitleMeta =
+      const VerificationMeta('subTitle');
+  @override
+  late final GeneratedColumn<String> subTitle = GeneratedColumn<String>(
+      'sub_title', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _songsMeta = const VerificationMeta('songs');
+  @override
+  late final GeneratedColumn<int> songs = GeneratedColumn<int>(
+      'songs', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _positionMeta =
+      const VerificationMeta('position');
+  @override
+  late final GeneratedColumn<int> position = GeneratedColumn<int>(
+      'position', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<String> createdAt = GeneratedColumn<String>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<String> updatedAt = GeneratedColumn<String>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        objectId,
+        enabled,
+        bookNo,
+        title,
+        subTitle,
+        songs,
+        position,
+        createdAt,
+        updatedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? 'db_book_table';
+  @override
+  String get actualTableName => 'db_book_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<DbBook> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('object_id')) {
+      context.handle(_objectIdMeta,
+          objectId.isAcceptableOrUnknown(data['object_id']!, _objectIdMeta));
+    } else if (isInserting) {
+      context.missing(_objectIdMeta);
+    }
+    if (data.containsKey('enabled')) {
+      context.handle(_enabledMeta,
+          enabled.isAcceptableOrUnknown(data['enabled']!, _enabledMeta));
+    }
+    if (data.containsKey('book_no')) {
+      context.handle(_bookNoMeta,
+          bookNo.isAcceptableOrUnknown(data['book_no']!, _bookNoMeta));
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    }
+    if (data.containsKey('sub_title')) {
+      context.handle(_subTitleMeta,
+          subTitle.isAcceptableOrUnknown(data['sub_title']!, _subTitleMeta));
+    }
+    if (data.containsKey('songs')) {
+      context.handle(
+          _songsMeta, songs.isAcceptableOrUnknown(data['songs']!, _songsMeta));
+    }
+    if (data.containsKey('position')) {
+      context.handle(_positionMeta,
+          position.isAcceptableOrUnknown(data['position']!, _positionMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DbBook map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DbBook(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      objectId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}object_id'])!,
+      enabled: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}enabled'])!,
+      bookNo: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}book_no'])!,
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      subTitle: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}sub_title'])!,
+      songs: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}songs'])!,
+      position: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}position'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $DbBookTableTable createAlias(String alias) {
+    return $DbBookTableTable(attachedDatabase, alias);
+  }
+}
+
 class DbBook extends DataClass implements Insertable<DbBook> {
   final int id;
   final String objectId;
@@ -18,7 +204,7 @@ class DbBook extends DataClass implements Insertable<DbBook> {
   final int position;
   final String createdAt;
   final String updatedAt;
-  DbBook(
+  const DbBook(
       {required this.id,
       required this.objectId,
       required this.enabled,
@@ -29,31 +215,6 @@ class DbBook extends DataClass implements Insertable<DbBook> {
       required this.position,
       required this.createdAt,
       required this.updatedAt});
-  factory DbBook.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return DbBook(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      objectId: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}object_id'])!,
-      enabled: const BoolType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}enabled'])!,
-      bookNo: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}book_no'])!,
-      title: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      subTitle: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}sub_title'])!,
-      songs: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}songs'])!,
-      position: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}position'])!,
-      createdAt: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}created_at'])!,
-      updatedAt: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}updated_at'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -317,102 +478,136 @@ class DbBookTableCompanion extends UpdateCompanion<DbBook> {
   }
 }
 
-class $DbBookTableTable extends DbBookTable
-    with TableInfo<$DbBookTableTable, DbBook> {
+class $DbDraftTableTable extends DbDraftTable
+    with TableInfo<$DbDraftTableTable, DbDraft> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DbBookTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $DbDraftTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: const IntType(),
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _objectIdMeta = const VerificationMeta('objectId');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _objectIdMeta =
+      const VerificationMeta('objectId');
   @override
-  late final GeneratedColumn<String?> objectId = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> objectId = GeneratedColumn<String>(
       'object_id', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: true,
-      defaultConstraints: 'UNIQUE');
-  final VerificationMeta _enabledMeta = const VerificationMeta('enabled');
-  @override
-  late final GeneratedColumn<bool?> enabled = GeneratedColumn<bool?>(
-      'enabled', aliasedName, false,
-      type: const BoolType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (enabled IN (0, 1))',
-      defaultValue: const Constant(false));
-  final VerificationMeta _bookNoMeta = const VerificationMeta('bookNo');
+      defaultValue: const Constant(''));
+  static const VerificationMeta _bookMeta = const VerificationMeta('book');
   @override
-  late final GeneratedColumn<int?> bookNo = GeneratedColumn<int?>(
-      'book_no', aliasedName, false,
-      type: const IntType(),
+  late final GeneratedColumn<int> book = GeneratedColumn<int>(
+      'book', aliasedName, false,
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultValue: const Constant(0));
-  final VerificationMeta _titleMeta = const VerificationMeta('title');
+  static const VerificationMeta _songNoMeta = const VerificationMeta('songNo');
   @override
-  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
+  late final GeneratedColumn<int> songNo = GeneratedColumn<int>(
+      'song_no', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
       'title', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
-  final VerificationMeta _subTitleMeta = const VerificationMeta('subTitle');
+  static const VerificationMeta _aliasMeta = const VerificationMeta('alias');
   @override
-  late final GeneratedColumn<String?> subTitle = GeneratedColumn<String?>(
-      'sub_title', aliasedName, false,
-      type: const StringType(),
+  late final GeneratedColumn<String> alias = GeneratedColumn<String>(
+      'alias', aliasedName, false,
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
-  final VerificationMeta _songsMeta = const VerificationMeta('songs');
+  static const VerificationMeta _contentMeta =
+      const VerificationMeta('content');
   @override
-  late final GeneratedColumn<int?> songs = GeneratedColumn<int?>(
-      'songs', aliasedName, false,
-      type: const IntType(),
+  late final GeneratedColumn<String> content = GeneratedColumn<String>(
+      'content', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _keyMeta = const VerificationMeta('key');
+  @override
+  late final GeneratedColumn<String> key = GeneratedColumn<String>(
+      'key', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _authorMeta = const VerificationMeta('author');
+  @override
+  late final GeneratedColumn<String> author = GeneratedColumn<String>(
+      'author', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _viewsMeta = const VerificationMeta('views');
+  @override
+  late final GeneratedColumn<int> views = GeneratedColumn<int>(
+      'views', aliasedName, false,
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultValue: const Constant(0));
-  final VerificationMeta _positionMeta = const VerificationMeta('position');
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
   @override
-  late final GeneratedColumn<int?> position = GeneratedColumn<int?>(
-      'position', aliasedName, false,
-      type: const IntType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(0));
-  final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
-  @override
-  late final GeneratedColumn<String?> createdAt = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> createdAt = GeneratedColumn<String>(
       'created_at', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
-  final VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
   @override
-  late final GeneratedColumn<String?> updatedAt = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> updatedAt = GeneratedColumn<String>(
       'updated_at', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
+  static const VerificationMeta _likedMeta = const VerificationMeta('liked');
+  @override
+  late final GeneratedColumn<bool> liked =
+      GeneratedColumn<bool>('liked', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("liked" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
         objectId,
-        enabled,
-        bookNo,
+        book,
+        songNo,
         title,
-        subTitle,
-        songs,
-        position,
+        alias,
+        content,
+        key,
+        author,
+        views,
         createdAt,
-        updatedAt
+        updatedAt,
+        liked
       ];
   @override
-  String get aliasedName => _alias ?? 'db_book_table';
+  String get aliasedName => _alias ?? 'db_draft_table';
   @override
-  String get actualTableName => 'db_book_table';
+  String get actualTableName => 'db_draft_table';
   @override
-  VerificationContext validateIntegrity(Insertable<DbBook> instance,
+  VerificationContext validateIntegrity(Insertable<DbDraft> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -422,32 +617,38 @@ class $DbBookTableTable extends DbBookTable
     if (data.containsKey('object_id')) {
       context.handle(_objectIdMeta,
           objectId.isAcceptableOrUnknown(data['object_id']!, _objectIdMeta));
-    } else if (isInserting) {
-      context.missing(_objectIdMeta);
     }
-    if (data.containsKey('enabled')) {
-      context.handle(_enabledMeta,
-          enabled.isAcceptableOrUnknown(data['enabled']!, _enabledMeta));
+    if (data.containsKey('book')) {
+      context.handle(
+          _bookMeta, book.isAcceptableOrUnknown(data['book']!, _bookMeta));
     }
-    if (data.containsKey('book_no')) {
-      context.handle(_bookNoMeta,
-          bookNo.isAcceptableOrUnknown(data['book_no']!, _bookNoMeta));
+    if (data.containsKey('song_no')) {
+      context.handle(_songNoMeta,
+          songNo.isAcceptableOrUnknown(data['song_no']!, _songNoMeta));
     }
     if (data.containsKey('title')) {
       context.handle(
           _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
     }
-    if (data.containsKey('sub_title')) {
-      context.handle(_subTitleMeta,
-          subTitle.isAcceptableOrUnknown(data['sub_title']!, _subTitleMeta));
-    }
-    if (data.containsKey('songs')) {
+    if (data.containsKey('alias')) {
       context.handle(
-          _songsMeta, songs.isAcceptableOrUnknown(data['songs']!, _songsMeta));
+          _aliasMeta, alias.isAcceptableOrUnknown(data['alias']!, _aliasMeta));
     }
-    if (data.containsKey('position')) {
-      context.handle(_positionMeta,
-          position.isAcceptableOrUnknown(data['position']!, _positionMeta));
+    if (data.containsKey('content')) {
+      context.handle(_contentMeta,
+          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
+    }
+    if (data.containsKey('key')) {
+      context.handle(
+          _keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
+    }
+    if (data.containsKey('author')) {
+      context.handle(_authorMeta,
+          author.isAcceptableOrUnknown(data['author']!, _authorMeta));
+    }
+    if (data.containsKey('views')) {
+      context.handle(
+          _viewsMeta, views.isAcceptableOrUnknown(data['views']!, _viewsMeta));
     }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
@@ -457,20 +658,51 @@ class $DbBookTableTable extends DbBookTable
       context.handle(_updatedAtMeta,
           updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
     }
+    if (data.containsKey('liked')) {
+      context.handle(
+          _likedMeta, liked.isAcceptableOrUnknown(data['liked']!, _likedMeta));
+    }
     return context;
   }
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DbBook map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return DbBook.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+  DbDraft map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DbDraft(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      objectId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}object_id'])!,
+      book: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}book'])!,
+      songNo: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}song_no'])!,
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      alias: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}alias'])!,
+      content: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}content'])!,
+      key: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}key'])!,
+      author: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}author'])!,
+      views: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}views'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}updated_at'])!,
+      liked: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}liked'])!,
+    );
   }
 
   @override
-  $DbBookTableTable createAlias(String alias) {
-    return $DbBookTableTable(attachedDatabase, alias);
+  $DbDraftTableTable createAlias(String alias) {
+    return $DbDraftTableTable(attachedDatabase, alias);
   }
 }
 
@@ -488,7 +720,7 @@ class DbDraft extends DataClass implements Insertable<DbDraft> {
   final String createdAt;
   final String updatedAt;
   final bool liked;
-  DbDraft(
+  const DbDraft(
       {required this.id,
       required this.objectId,
       required this.book,
@@ -502,37 +734,6 @@ class DbDraft extends DataClass implements Insertable<DbDraft> {
       required this.createdAt,
       required this.updatedAt,
       required this.liked});
-  factory DbDraft.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return DbDraft(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      objectId: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}object_id'])!,
-      book: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}book'])!,
-      songNo: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}song_no'])!,
-      title: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      alias: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}alias'])!,
-      content: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}content'])!,
-      key: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}key'])!,
-      author: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}author'])!,
-      views: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}views'])!,
-      createdAt: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}created_at'])!,
-      updatedAt: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}updated_at'])!,
-      liked: const BoolType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}liked'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -853,135 +1054,97 @@ class DbDraftTableCompanion extends UpdateCompanion<DbDraft> {
   }
 }
 
-class $DbDraftTableTable extends DbDraftTable
-    with TableInfo<$DbDraftTableTable, DbDraft> {
+class $DbEditTableTable extends DbEditTable
+    with TableInfo<$DbEditTableTable, DbEdit> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DbDraftTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $DbEditTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: const IntType(),
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _objectIdMeta = const VerificationMeta('objectId');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _songMeta = const VerificationMeta('song');
   @override
-  late final GeneratedColumn<String?> objectId = GeneratedColumn<String?>(
-      'object_id', aliasedName, false,
-      type: const StringType(),
+  late final GeneratedColumn<String> song = GeneratedColumn<String>(
+      'song', aliasedName, false,
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
-  final VerificationMeta _bookMeta = const VerificationMeta('book');
+  static const VerificationMeta _bookMeta = const VerificationMeta('book');
   @override
-  late final GeneratedColumn<int?> book = GeneratedColumn<int?>(
+  late final GeneratedColumn<int> book = GeneratedColumn<int>(
       'book', aliasedName, false,
-      type: const IntType(),
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultValue: const Constant(0));
-  final VerificationMeta _songNoMeta = const VerificationMeta('songNo');
+  static const VerificationMeta _songNoMeta = const VerificationMeta('songNo');
   @override
-  late final GeneratedColumn<int?> songNo = GeneratedColumn<int?>(
+  late final GeneratedColumn<int> songNo = GeneratedColumn<int>(
       'song_no', aliasedName, false,
-      type: const IntType(),
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultValue: const Constant(0));
-  final VerificationMeta _titleMeta = const VerificationMeta('title');
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
-  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
       'title', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
-  final VerificationMeta _aliasMeta = const VerificationMeta('alias');
+  static const VerificationMeta _aliasMeta = const VerificationMeta('alias');
   @override
-  late final GeneratedColumn<String?> alias = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> alias = GeneratedColumn<String>(
       'alias', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
-  final VerificationMeta _contentMeta = const VerificationMeta('content');
+  static const VerificationMeta _contentMeta =
+      const VerificationMeta('content');
   @override
-  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> content = GeneratedColumn<String>(
       'content', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
-  final VerificationMeta _keyMeta = const VerificationMeta('key');
+  static const VerificationMeta _keyMeta = const VerificationMeta('key');
   @override
-  late final GeneratedColumn<String?> key = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> key = GeneratedColumn<String>(
       'key', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
-  final VerificationMeta _authorMeta = const VerificationMeta('author');
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
   @override
-  late final GeneratedColumn<String?> author = GeneratedColumn<String?>(
-      'author', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _viewsMeta = const VerificationMeta('views');
-  @override
-  late final GeneratedColumn<int?> views = GeneratedColumn<int?>(
-      'views', aliasedName, false,
-      type: const IntType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(0));
-  final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
-  @override
-  late final GeneratedColumn<String?> createdAt = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> createdAt = GeneratedColumn<String>(
       'created_at', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
-  final VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
   @override
-  late final GeneratedColumn<String?> updatedAt = GeneratedColumn<String?>(
-      'updated_at', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _likedMeta = const VerificationMeta('liked');
+  List<GeneratedColumn> get $columns =>
+      [id, song, book, songNo, title, alias, content, key, createdAt];
   @override
-  late final GeneratedColumn<bool?> liked = GeneratedColumn<bool?>(
-      'liked', aliasedName, false,
-      type: const BoolType(),
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (liked IN (0, 1))',
-      defaultValue: const Constant(false));
+  String get aliasedName => _alias ?? 'db_edit_table';
   @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        objectId,
-        book,
-        songNo,
-        title,
-        alias,
-        content,
-        key,
-        author,
-        views,
-        createdAt,
-        updatedAt,
-        liked
-      ];
+  String get actualTableName => 'db_edit_table';
   @override
-  String get aliasedName => _alias ?? 'db_draft_table';
-  @override
-  String get actualTableName => 'db_draft_table';
-  @override
-  VerificationContext validateIntegrity(Insertable<DbDraft> instance,
+  VerificationContext validateIntegrity(Insertable<DbEdit> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('object_id')) {
-      context.handle(_objectIdMeta,
-          objectId.isAcceptableOrUnknown(data['object_id']!, _objectIdMeta));
+    if (data.containsKey('song')) {
+      context.handle(
+          _songMeta, song.isAcceptableOrUnknown(data['song']!, _songMeta));
     }
     if (data.containsKey('book')) {
       context.handle(
@@ -1007,25 +1170,9 @@ class $DbDraftTableTable extends DbDraftTable
       context.handle(
           _keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
     }
-    if (data.containsKey('author')) {
-      context.handle(_authorMeta,
-          author.isAcceptableOrUnknown(data['author']!, _authorMeta));
-    }
-    if (data.containsKey('views')) {
-      context.handle(
-          _viewsMeta, views.isAcceptableOrUnknown(data['views']!, _viewsMeta));
-    }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
           createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
-    }
-    if (data.containsKey('updated_at')) {
-      context.handle(_updatedAtMeta,
-          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
-    }
-    if (data.containsKey('liked')) {
-      context.handle(
-          _likedMeta, liked.isAcceptableOrUnknown(data['liked']!, _likedMeta));
     }
     return context;
   }
@@ -1033,14 +1180,33 @@ class $DbDraftTableTable extends DbDraftTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DbDraft map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return DbDraft.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+  DbEdit map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DbEdit(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      song: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}song'])!,
+      book: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}book'])!,
+      songNo: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}song_no'])!,
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      alias: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}alias'])!,
+      content: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}content'])!,
+      key: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}key'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}created_at'])!,
+    );
   }
 
   @override
-  $DbDraftTableTable createAlias(String alias) {
-    return $DbDraftTableTable(attachedDatabase, alias);
+  $DbEditTableTable createAlias(String alias) {
+    return $DbEditTableTable(attachedDatabase, alias);
   }
 }
 
@@ -1054,7 +1220,7 @@ class DbEdit extends DataClass implements Insertable<DbEdit> {
   final String content;
   final String key;
   final String createdAt;
-  DbEdit(
+  const DbEdit(
       {required this.id,
       required this.song,
       required this.book,
@@ -1064,29 +1230,6 @@ class DbEdit extends DataClass implements Insertable<DbEdit> {
       required this.content,
       required this.key,
       required this.createdAt});
-  factory DbEdit.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return DbEdit(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      song: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}song'])!,
-      book: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}book'])!,
-      songNo: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}song_no'])!,
-      title: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      alias: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}alias'])!,
-      content: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}content'])!,
-      key: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}key'])!,
-      createdAt: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}created_at'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1331,117 +1474,65 @@ class DbEditTableCompanion extends UpdateCompanion<DbEdit> {
   }
 }
 
-class $DbEditTableTable extends DbEditTable
-    with TableInfo<$DbEditTableTable, DbEdit> {
+class $DbHistoryTableTable extends DbHistoryTable
+    with TableInfo<$DbHistoryTableTable, DbHistory> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DbEditTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $DbHistoryTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: const IntType(),
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _songMeta = const VerificationMeta('song');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _objectIdMeta =
+      const VerificationMeta('objectId');
   @override
-  late final GeneratedColumn<String?> song = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> objectId = GeneratedColumn<String>(
+      'object_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _songMeta = const VerificationMeta('song');
+  @override
+  late final GeneratedColumn<int> song = GeneratedColumn<int>(
       'song', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _bookMeta = const VerificationMeta('book');
-  @override
-  late final GeneratedColumn<int?> book = GeneratedColumn<int?>(
-      'book', aliasedName, false,
-      type: const IntType(),
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultValue: const Constant(0));
-  final VerificationMeta _songNoMeta = const VerificationMeta('songNo');
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
   @override
-  late final GeneratedColumn<int?> songNo = GeneratedColumn<int?>(
-      'song_no', aliasedName, false,
-      type: const IntType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(0));
-  final VerificationMeta _titleMeta = const VerificationMeta('title');
-  @override
-  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
-      'title', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _aliasMeta = const VerificationMeta('alias');
-  @override
-  late final GeneratedColumn<String?> alias = GeneratedColumn<String?>(
-      'alias', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _contentMeta = const VerificationMeta('content');
-  @override
-  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
-      'content', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _keyMeta = const VerificationMeta('key');
-  @override
-  late final GeneratedColumn<String?> key = GeneratedColumn<String?>(
-      'key', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
-  @override
-  late final GeneratedColumn<String?> createdAt = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> createdAt = GeneratedColumn<String>(
       'created_at', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, song, book, songNo, title, alias, content, key, createdAt];
+  List<GeneratedColumn> get $columns => [id, objectId, song, createdAt];
   @override
-  String get aliasedName => _alias ?? 'db_edit_table';
+  String get aliasedName => _alias ?? 'db_history_table';
   @override
-  String get actualTableName => 'db_edit_table';
+  String get actualTableName => 'db_history_table';
   @override
-  VerificationContext validateIntegrity(Insertable<DbEdit> instance,
+  VerificationContext validateIntegrity(Insertable<DbHistory> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
+    if (data.containsKey('object_id')) {
+      context.handle(_objectIdMeta,
+          objectId.isAcceptableOrUnknown(data['object_id']!, _objectIdMeta));
+    }
     if (data.containsKey('song')) {
       context.handle(
           _songMeta, song.isAcceptableOrUnknown(data['song']!, _songMeta));
-    }
-    if (data.containsKey('book')) {
-      context.handle(
-          _bookMeta, book.isAcceptableOrUnknown(data['book']!, _bookMeta));
-    }
-    if (data.containsKey('song_no')) {
-      context.handle(_songNoMeta,
-          songNo.isAcceptableOrUnknown(data['song_no']!, _songNoMeta));
-    }
-    if (data.containsKey('title')) {
-      context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
-    }
-    if (data.containsKey('alias')) {
-      context.handle(
-          _aliasMeta, alias.isAcceptableOrUnknown(data['alias']!, _aliasMeta));
-    }
-    if (data.containsKey('content')) {
-      context.handle(_contentMeta,
-          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
-    }
-    if (data.containsKey('key')) {
-      context.handle(
-          _keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
     }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
@@ -1453,14 +1544,23 @@ class $DbEditTableTable extends DbEditTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DbEdit map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return DbEdit.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+  DbHistory map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DbHistory(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      objectId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}object_id'])!,
+      song: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}song'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}created_at'])!,
+    );
   }
 
   @override
-  $DbEditTableTable createAlias(String alias) {
-    return $DbEditTableTable(attachedDatabase, alias);
+  $DbHistoryTableTable createAlias(String alias) {
+    return $DbHistoryTableTable(attachedDatabase, alias);
   }
 }
 
@@ -1469,24 +1569,11 @@ class DbHistory extends DataClass implements Insertable<DbHistory> {
   final String objectId;
   final int song;
   final String createdAt;
-  DbHistory(
+  const DbHistory(
       {required this.id,
       required this.objectId,
       required this.song,
       required this.createdAt});
-  factory DbHistory.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return DbHistory(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      objectId: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}object_id'])!,
-      song: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}song'])!,
-      createdAt: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}created_at'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1632,48 +1719,101 @@ class DbHistoryTableCompanion extends UpdateCompanion<DbHistory> {
   }
 }
 
-class $DbHistoryTableTable extends DbHistoryTable
-    with TableInfo<$DbHistoryTableTable, DbHistory> {
+class $DbListedTableTable extends DbListedTable
+    with TableInfo<$DbListedTableTable, DbListed> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DbHistoryTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $DbListedTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: const IntType(),
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _objectIdMeta = const VerificationMeta('objectId');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _objectIdMeta =
+      const VerificationMeta('objectId');
   @override
-  late final GeneratedColumn<String?> objectId = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> objectId = GeneratedColumn<String>(
       'object_id', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
-  final VerificationMeta _songMeta = const VerificationMeta('song');
+  static const VerificationMeta _parentidMeta =
+      const VerificationMeta('parentid');
   @override
-  late final GeneratedColumn<int?> song = GeneratedColumn<int?>(
-      'song', aliasedName, false,
-      type: const IntType(),
+  late final GeneratedColumn<int> parentid = GeneratedColumn<int>(
+      'parentid', aliasedName, false,
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultValue: const Constant(0));
-  final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
+  static const VerificationMeta _songMeta = const VerificationMeta('song');
   @override
-  late final GeneratedColumn<String?> createdAt = GeneratedColumn<String?>(
+  late final GeneratedColumn<int> song = GeneratedColumn<int>(
+      'song', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+      'title', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _positionMeta =
+      const VerificationMeta('position');
+  @override
+  late final GeneratedColumn<int> position = GeneratedColumn<int>(
+      'position', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<String> createdAt = GeneratedColumn<String>(
       'created_at', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<String> updatedAt = GeneratedColumn<String>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
   @override
-  List<GeneratedColumn> get $columns => [id, objectId, song, createdAt];
+  List<GeneratedColumn> get $columns => [
+        id,
+        objectId,
+        parentid,
+        song,
+        title,
+        description,
+        position,
+        createdAt,
+        updatedAt
+      ];
   @override
-  String get aliasedName => _alias ?? 'db_history_table';
+  String get aliasedName => _alias ?? 'db_listed_table';
   @override
-  String get actualTableName => 'db_history_table';
+  String get actualTableName => 'db_listed_table';
   @override
-  VerificationContext validateIntegrity(Insertable<DbHistory> instance,
+  VerificationContext validateIntegrity(Insertable<DbListed> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -1684,13 +1824,35 @@ class $DbHistoryTableTable extends DbHistoryTable
       context.handle(_objectIdMeta,
           objectId.isAcceptableOrUnknown(data['object_id']!, _objectIdMeta));
     }
+    if (data.containsKey('parentid')) {
+      context.handle(_parentidMeta,
+          parentid.isAcceptableOrUnknown(data['parentid']!, _parentidMeta));
+    }
     if (data.containsKey('song')) {
       context.handle(
           _songMeta, song.isAcceptableOrUnknown(data['song']!, _songMeta));
     }
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    }
+    if (data.containsKey('position')) {
+      context.handle(_positionMeta,
+          position.isAcceptableOrUnknown(data['position']!, _positionMeta));
+    }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
           createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
     }
     return context;
   }
@@ -1698,14 +1860,33 @@ class $DbHistoryTableTable extends DbHistoryTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DbHistory map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return DbHistory.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+  DbListed map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DbListed(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      objectId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}object_id'])!,
+      parentid: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}parentid'])!,
+      song: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}song'])!,
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
+      position: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}position'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}updated_at'])!,
+    );
   }
 
   @override
-  $DbHistoryTableTable createAlias(String alias) {
-    return $DbHistoryTableTable(attachedDatabase, alias);
+  $DbListedTableTable createAlias(String alias) {
+    return $DbListedTableTable(attachedDatabase, alias);
   }
 }
 
@@ -1719,7 +1900,7 @@ class DbListed extends DataClass implements Insertable<DbListed> {
   final int position;
   final String createdAt;
   final String updatedAt;
-  DbListed(
+  const DbListed(
       {required this.id,
       required this.objectId,
       required this.parentid,
@@ -1729,29 +1910,6 @@ class DbListed extends DataClass implements Insertable<DbListed> {
       required this.position,
       required this.createdAt,
       required this.updatedAt});
-  factory DbListed.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return DbListed(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      objectId: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}object_id'])!,
-      parentid: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}parentid'])!,
-      song: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}song'])!,
-      title: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      description: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}description'])!,
-      position: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}position'])!,
-      createdAt: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}created_at'])!,
-      updatedAt: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}updated_at'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1996,94 +2154,52 @@ class DbListedTableCompanion extends UpdateCompanion<DbListed> {
   }
 }
 
-class $DbListedTableTable extends DbListedTable
-    with TableInfo<$DbListedTableTable, DbListed> {
+class $DbSearchTableTable extends DbSearchTable
+    with TableInfo<$DbSearchTableTable, DbSearch> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DbListedTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $DbSearchTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: const IntType(),
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _objectIdMeta = const VerificationMeta('objectId');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _objectIdMeta =
+      const VerificationMeta('objectId');
   @override
-  late final GeneratedColumn<String?> objectId = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> objectId = GeneratedColumn<String>(
       'object_id', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
-  final VerificationMeta _parentidMeta = const VerificationMeta('parentid');
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
-  late final GeneratedColumn<int?> parentid = GeneratedColumn<int?>(
-      'parentid', aliasedName, false,
-      type: const IntType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(0));
-  final VerificationMeta _songMeta = const VerificationMeta('song');
-  @override
-  late final GeneratedColumn<int?> song = GeneratedColumn<int?>(
-      'song', aliasedName, false,
-      type: const IntType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(0));
-  final VerificationMeta _titleMeta = const VerificationMeta('title');
-  @override
-  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
       'title', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
-  final VerificationMeta _descriptionMeta =
-      const VerificationMeta('description');
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
   @override
-  late final GeneratedColumn<String?> description = GeneratedColumn<String?>(
-      'description', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _positionMeta = const VerificationMeta('position');
-  @override
-  late final GeneratedColumn<int?> position = GeneratedColumn<int?>(
-      'position', aliasedName, false,
-      type: const IntType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(0));
-  final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
-  @override
-  late final GeneratedColumn<String?> createdAt = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> createdAt = GeneratedColumn<String>(
       'created_at', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
-  @override
-  late final GeneratedColumn<String?> updatedAt = GeneratedColumn<String?>(
-      'updated_at', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
   @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        objectId,
-        parentid,
-        song,
-        title,
-        description,
-        position,
-        createdAt,
-        updatedAt
-      ];
+  List<GeneratedColumn> get $columns => [id, objectId, title, createdAt];
   @override
-  String get aliasedName => _alias ?? 'db_listed_table';
+  String get aliasedName => _alias ?? 'db_search_table';
   @override
-  String get actualTableName => 'db_listed_table';
+  String get actualTableName => 'db_search_table';
   @override
-  VerificationContext validateIntegrity(Insertable<DbListed> instance,
+  VerificationContext validateIntegrity(Insertable<DbSearch> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -2094,35 +2210,13 @@ class $DbListedTableTable extends DbListedTable
       context.handle(_objectIdMeta,
           objectId.isAcceptableOrUnknown(data['object_id']!, _objectIdMeta));
     }
-    if (data.containsKey('parentid')) {
-      context.handle(_parentidMeta,
-          parentid.isAcceptableOrUnknown(data['parentid']!, _parentidMeta));
-    }
-    if (data.containsKey('song')) {
-      context.handle(
-          _songMeta, song.isAcceptableOrUnknown(data['song']!, _songMeta));
-    }
     if (data.containsKey('title')) {
       context.handle(
           _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
     }
-    if (data.containsKey('description')) {
-      context.handle(
-          _descriptionMeta,
-          description.isAcceptableOrUnknown(
-              data['description']!, _descriptionMeta));
-    }
-    if (data.containsKey('position')) {
-      context.handle(_positionMeta,
-          position.isAcceptableOrUnknown(data['position']!, _positionMeta));
-    }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
           createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
-    }
-    if (data.containsKey('updated_at')) {
-      context.handle(_updatedAtMeta,
-          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
     }
     return context;
   }
@@ -2130,14 +2224,23 @@ class $DbListedTableTable extends DbListedTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DbListed map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return DbListed.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+  DbSearch map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DbSearch(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      objectId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}object_id'])!,
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}created_at'])!,
+    );
   }
 
   @override
-  $DbListedTableTable createAlias(String alias) {
-    return $DbListedTableTable(attachedDatabase, alias);
+  $DbSearchTableTable createAlias(String alias) {
+    return $DbSearchTableTable(attachedDatabase, alias);
   }
 }
 
@@ -2146,24 +2249,11 @@ class DbSearch extends DataClass implements Insertable<DbSearch> {
   final String objectId;
   final String title;
   final String createdAt;
-  DbSearch(
+  const DbSearch(
       {required this.id,
       required this.objectId,
       required this.title,
       required this.createdAt});
-  factory DbSearch.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return DbSearch(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      objectId: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}object_id'])!,
-      title: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      createdAt: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}created_at'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2309,48 +2399,144 @@ class DbSearchTableCompanion extends UpdateCompanion<DbSearch> {
   }
 }
 
-class $DbSearchTableTable extends DbSearchTable
-    with TableInfo<$DbSearchTableTable, DbSearch> {
+class $DbSongTableTable extends DbSongTable
+    with TableInfo<$DbSongTableTable, DbSong> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DbSearchTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $DbSongTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: const IntType(),
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _objectIdMeta = const VerificationMeta('objectId');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _objectIdMeta =
+      const VerificationMeta('objectId');
   @override
-  late final GeneratedColumn<String?> objectId = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> objectId = GeneratedColumn<String>(
       'object_id', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _titleMeta = const VerificationMeta('title');
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _bookMeta = const VerificationMeta('book');
   @override
-  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
+  late final GeneratedColumn<int> book = GeneratedColumn<int>(
+      'book', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _songNoMeta = const VerificationMeta('songNo');
+  @override
+  late final GeneratedColumn<int> songNo = GeneratedColumn<int>(
+      'song_no', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
       'title', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
-  final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
+  static const VerificationMeta _aliasMeta = const VerificationMeta('alias');
   @override
-  late final GeneratedColumn<String?> createdAt = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> alias = GeneratedColumn<String>(
+      'alias', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _contentMeta =
+      const VerificationMeta('content');
+  @override
+  late final GeneratedColumn<String> content = GeneratedColumn<String>(
+      'content', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _keyMeta = const VerificationMeta('key');
+  @override
+  late final GeneratedColumn<String> key = GeneratedColumn<String>(
+      'key', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _authorMeta = const VerificationMeta('author');
+  @override
+  late final GeneratedColumn<String> author = GeneratedColumn<String>(
+      'author', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _viewsMeta = const VerificationMeta('views');
+  @override
+  late final GeneratedColumn<int> views = GeneratedColumn<int>(
+      'views', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _likesMeta = const VerificationMeta('likes');
+  @override
+  late final GeneratedColumn<int> likes = GeneratedColumn<int>(
+      'likes', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<String> createdAt = GeneratedColumn<String>(
       'created_at', aliasedName, false,
-      type: const StringType(),
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(''));
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
   @override
-  List<GeneratedColumn> get $columns => [id, objectId, title, createdAt];
+  late final GeneratedColumn<String> updatedAt = GeneratedColumn<String>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(''));
+  static const VerificationMeta _likedMeta = const VerificationMeta('liked');
   @override
-  String get aliasedName => _alias ?? 'db_search_table';
+  late final GeneratedColumn<bool> liked =
+      GeneratedColumn<bool>('liked', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("liked" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
   @override
-  String get actualTableName => 'db_search_table';
+  List<GeneratedColumn> get $columns => [
+        id,
+        objectId,
+        book,
+        songNo,
+        title,
+        alias,
+        content,
+        key,
+        author,
+        views,
+        likes,
+        createdAt,
+        updatedAt,
+        liked
+      ];
   @override
-  VerificationContext validateIntegrity(Insertable<DbSearch> instance,
+  String get aliasedName => _alias ?? 'db_song_table';
+  @override
+  String get actualTableName => 'db_song_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<DbSong> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -2360,14 +2546,56 @@ class $DbSearchTableTable extends DbSearchTable
     if (data.containsKey('object_id')) {
       context.handle(_objectIdMeta,
           objectId.isAcceptableOrUnknown(data['object_id']!, _objectIdMeta));
+    } else if (isInserting) {
+      context.missing(_objectIdMeta);
+    }
+    if (data.containsKey('book')) {
+      context.handle(
+          _bookMeta, book.isAcceptableOrUnknown(data['book']!, _bookMeta));
+    }
+    if (data.containsKey('song_no')) {
+      context.handle(_songNoMeta,
+          songNo.isAcceptableOrUnknown(data['song_no']!, _songNoMeta));
     }
     if (data.containsKey('title')) {
       context.handle(
           _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
     }
+    if (data.containsKey('alias')) {
+      context.handle(
+          _aliasMeta, alias.isAcceptableOrUnknown(data['alias']!, _aliasMeta));
+    }
+    if (data.containsKey('content')) {
+      context.handle(_contentMeta,
+          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
+    }
+    if (data.containsKey('key')) {
+      context.handle(
+          _keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
+    }
+    if (data.containsKey('author')) {
+      context.handle(_authorMeta,
+          author.isAcceptableOrUnknown(data['author']!, _authorMeta));
+    }
+    if (data.containsKey('views')) {
+      context.handle(
+          _viewsMeta, views.isAcceptableOrUnknown(data['views']!, _viewsMeta));
+    }
+    if (data.containsKey('likes')) {
+      context.handle(
+          _likesMeta, likes.isAcceptableOrUnknown(data['likes']!, _likesMeta));
+    }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
           createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    if (data.containsKey('liked')) {
+      context.handle(
+          _likedMeta, liked.isAcceptableOrUnknown(data['liked']!, _likedMeta));
     }
     return context;
   }
@@ -2375,14 +2603,43 @@ class $DbSearchTableTable extends DbSearchTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DbSearch map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return DbSearch.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+  DbSong map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DbSong(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      objectId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}object_id'])!,
+      book: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}book'])!,
+      songNo: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}song_no'])!,
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      alias: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}alias'])!,
+      content: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}content'])!,
+      key: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}key'])!,
+      author: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}author'])!,
+      views: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}views'])!,
+      likes: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}likes'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}updated_at'])!,
+      liked: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}liked'])!,
+    );
   }
 
   @override
-  $DbSearchTableTable createAlias(String alias) {
-    return $DbSearchTableTable(attachedDatabase, alias);
+  $DbSongTableTable createAlias(String alias) {
+    return $DbSongTableTable(attachedDatabase, alias);
   }
 }
 
@@ -2401,7 +2658,7 @@ class DbSong extends DataClass implements Insertable<DbSong> {
   final String createdAt;
   final String updatedAt;
   final bool liked;
-  DbSong(
+  const DbSong(
       {required this.id,
       required this.objectId,
       required this.book,
@@ -2416,39 +2673,6 @@ class DbSong extends DataClass implements Insertable<DbSong> {
       required this.createdAt,
       required this.updatedAt,
       required this.liked});
-  factory DbSong.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return DbSong(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      objectId: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}object_id'])!,
-      book: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}book'])!,
-      songNo: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}song_no'])!,
-      title: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      alias: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}alias'])!,
-      content: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}content'])!,
-      key: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}key'])!,
-      author: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}author'])!,
-      views: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}views'])!,
-      likes: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}likes'])!,
-      createdAt: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}created_at'])!,
-      updatedAt: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}updated_at'])!,
-      liked: const BoolType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}liked'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2788,213 +3012,8 @@ class DbSongTableCompanion extends UpdateCompanion<DbSong> {
   }
 }
 
-class $DbSongTableTable extends DbSongTable
-    with TableInfo<$DbSongTableTable, DbSong> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $DbSongTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
-      'id', aliasedName, false,
-      type: const IntType(),
-      requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _objectIdMeta = const VerificationMeta('objectId');
-  @override
-  late final GeneratedColumn<String?> objectId = GeneratedColumn<String?>(
-      'object_id', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: true,
-      defaultConstraints: 'UNIQUE');
-  final VerificationMeta _bookMeta = const VerificationMeta('book');
-  @override
-  late final GeneratedColumn<int?> book = GeneratedColumn<int?>(
-      'book', aliasedName, false,
-      type: const IntType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(0));
-  final VerificationMeta _songNoMeta = const VerificationMeta('songNo');
-  @override
-  late final GeneratedColumn<int?> songNo = GeneratedColumn<int?>(
-      'song_no', aliasedName, false,
-      type: const IntType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(0));
-  final VerificationMeta _titleMeta = const VerificationMeta('title');
-  @override
-  late final GeneratedColumn<String?> title = GeneratedColumn<String?>(
-      'title', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _aliasMeta = const VerificationMeta('alias');
-  @override
-  late final GeneratedColumn<String?> alias = GeneratedColumn<String?>(
-      'alias', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _contentMeta = const VerificationMeta('content');
-  @override
-  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
-      'content', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _keyMeta = const VerificationMeta('key');
-  @override
-  late final GeneratedColumn<String?> key = GeneratedColumn<String?>(
-      'key', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _authorMeta = const VerificationMeta('author');
-  @override
-  late final GeneratedColumn<String?> author = GeneratedColumn<String?>(
-      'author', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _viewsMeta = const VerificationMeta('views');
-  @override
-  late final GeneratedColumn<int?> views = GeneratedColumn<int?>(
-      'views', aliasedName, false,
-      type: const IntType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(0));
-  final VerificationMeta _likesMeta = const VerificationMeta('likes');
-  @override
-  late final GeneratedColumn<int?> likes = GeneratedColumn<int?>(
-      'likes', aliasedName, false,
-      type: const IntType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(0));
-  final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
-  @override
-  late final GeneratedColumn<String?> createdAt = GeneratedColumn<String?>(
-      'created_at', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
-  @override
-  late final GeneratedColumn<String?> updatedAt = GeneratedColumn<String?>(
-      'updated_at', aliasedName, false,
-      type: const StringType(),
-      requiredDuringInsert: false,
-      defaultValue: const Constant(''));
-  final VerificationMeta _likedMeta = const VerificationMeta('liked');
-  @override
-  late final GeneratedColumn<bool?> liked = GeneratedColumn<bool?>(
-      'liked', aliasedName, false,
-      type: const BoolType(),
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (liked IN (0, 1))',
-      defaultValue: const Constant(false));
-  @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        objectId,
-        book,
-        songNo,
-        title,
-        alias,
-        content,
-        key,
-        author,
-        views,
-        likes,
-        createdAt,
-        updatedAt,
-        liked
-      ];
-  @override
-  String get aliasedName => _alias ?? 'db_song_table';
-  @override
-  String get actualTableName => 'db_song_table';
-  @override
-  VerificationContext validateIntegrity(Insertable<DbSong> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('object_id')) {
-      context.handle(_objectIdMeta,
-          objectId.isAcceptableOrUnknown(data['object_id']!, _objectIdMeta));
-    } else if (isInserting) {
-      context.missing(_objectIdMeta);
-    }
-    if (data.containsKey('book')) {
-      context.handle(
-          _bookMeta, book.isAcceptableOrUnknown(data['book']!, _bookMeta));
-    }
-    if (data.containsKey('song_no')) {
-      context.handle(_songNoMeta,
-          songNo.isAcceptableOrUnknown(data['song_no']!, _songNoMeta));
-    }
-    if (data.containsKey('title')) {
-      context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
-    }
-    if (data.containsKey('alias')) {
-      context.handle(
-          _aliasMeta, alias.isAcceptableOrUnknown(data['alias']!, _aliasMeta));
-    }
-    if (data.containsKey('content')) {
-      context.handle(_contentMeta,
-          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
-    }
-    if (data.containsKey('key')) {
-      context.handle(
-          _keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
-    }
-    if (data.containsKey('author')) {
-      context.handle(_authorMeta,
-          author.isAcceptableOrUnknown(data['author']!, _authorMeta));
-    }
-    if (data.containsKey('views')) {
-      context.handle(
-          _viewsMeta, views.isAcceptableOrUnknown(data['views']!, _viewsMeta));
-    }
-    if (data.containsKey('likes')) {
-      context.handle(
-          _likesMeta, likes.isAcceptableOrUnknown(data['likes']!, _likesMeta));
-    }
-    if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta,
-          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
-    }
-    if (data.containsKey('updated_at')) {
-      context.handle(_updatedAtMeta,
-          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
-    }
-    if (data.containsKey('liked')) {
-      context.handle(
-          _likedMeta, liked.isAcceptableOrUnknown(data['liked']!, _likedMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  DbSong map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return DbSong.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
-  }
-
-  @override
-  $DbSongTableTable createAlias(String alias) {
-    return $DbSongTableTable(attachedDatabase, alias);
-  }
-}
-
 abstract class _$SongLibDB extends GeneratedDatabase {
-  _$SongLibDB(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
+  _$SongLibDB(QueryExecutor e) : super(e);
   _$SongLibDB.connect(DatabaseConnection c) : super.connect(c);
   late final $DbBookTableTable dbBookTable = $DbBookTableTable(this);
   late final $DbDraftTableTable dbDraftTable = $DbDraftTableTable(this);
@@ -3003,15 +3022,9 @@ abstract class _$SongLibDB extends GeneratedDatabase {
   late final $DbListedTableTable dbListedTable = $DbListedTableTable(this);
   late final $DbSearchTableTable dbSearchTable = $DbSearchTableTable(this);
   late final $DbSongTableTable dbSongTable = $DbSongTableTable(this);
-  late final BookDao bookDao = BookDao(this as SongLibDB);
-  late final DraftDao draftDao = DraftDao(this as SongLibDB);
-  late final EditDao editDao = EditDao(this as SongLibDB);
-  late final HistoryDao historyDao = HistoryDao(this as SongLibDB);
-  late final ListedDao listedDao = ListedDao(this as SongLibDB);
-  late final SearchDao searchDao = SearchDao(this as SongLibDB);
-  late final SongDao songDao = SongDao(this as SongLibDB);
   @override
-  Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
+  Iterable<TableInfo<Table, Object?>> get allTables =>
+      allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
         dbBookTable,

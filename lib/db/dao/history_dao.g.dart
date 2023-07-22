@@ -2,10 +2,7 @@
 
 part of 'history_dao.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$_HistoryDaoMixin on DatabaseAccessor<SongLibDB> {
   $DbHistoryTableTable get dbHistoryTable => attachedDatabase.dbHistoryTable;
 }

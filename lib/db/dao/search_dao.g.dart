@@ -2,10 +2,7 @@
 
 part of 'search_dao.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$_SearchDaoMixin on DatabaseAccessor<SongLibDB> {
   $DbSearchTableTable get dbSearchTable => attachedDatabase.dbSearchTable;
 }

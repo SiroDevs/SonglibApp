@@ -1,5 +1,3 @@
-import 'package:drift/drift.dart';
-
 class ListedExt {
   int? parentid;
   int? position;
@@ -43,26 +41,24 @@ class ListedExt {
 
   factory ListedExt.fromData(Map<String, dynamic> data) {
     return ListedExt(
-      parentid: const IntType().mapFromDatabaseResponse(data['parentid'])!,
-      position: const IntType().mapFromDatabaseResponse(data['position'])!,
-      createdAt:
-          const StringType().mapFromDatabaseResponse(data['created_at'])!,
-      updatedAt:
-          const StringType().mapFromDatabaseResponse(data['updated_at'])!,
-      id: const IntType().mapFromDatabaseResponse(data['id'])!,
-      book: const IntType().mapFromDatabaseResponse(data['book'])!,
-      song: const IntType().mapFromDatabaseResponse(data['song'])!,
-      songNo: const IntType().mapFromDatabaseResponse(data['song_no'])!,
-      title: const StringType().mapFromDatabaseResponse(data['title'])!,
-      alias: const StringType().mapFromDatabaseResponse(data['alias'])!,
-      content: const StringType().mapFromDatabaseResponse(data['content'])!,
-      key: const StringType().mapFromDatabaseResponse(data['key'])!,
-      author: const StringType().mapFromDatabaseResponse(data['author'])!,
-      views: const IntType().mapFromDatabaseResponse(data['views'])!,
-      likes: const IntType().mapFromDatabaseResponse(data['likes'])!,
-      liked: const BoolType().mapFromDatabaseResponse(data['liked'])!,
-      songId: const IntType().mapFromDatabaseResponse(data['songId'])!,
-      songbook: const StringType().mapFromDatabaseResponse(data['songbook'])!,
+      parentid: data['parentid'],
+      position: data['position'],
+      createdAt: data['created_at'],
+      updatedAt: data['updated_at'],
+      id: data['id'],
+      book: data['book'],
+      song: data['song'],
+      songNo: data['song_no'],
+      title: data['title'],
+      alias: data['alias'],
+      content: data['content'],
+      key: data['key'],
+      author: data['author'],
+      views: data['views'],
+      likes: data['likes'],
+      liked: data['liked'],
+      songId: data['songId'],
+      songbook: data['songbook'],
     );
   }
 }

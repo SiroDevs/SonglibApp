@@ -2,10 +2,7 @@
 
 part of 'book_dao.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$_BookDaoMixin on DatabaseAccessor<SongLibDB> {
   $DbBookTableTable get dbBookTable => attachedDatabase.dbBookTable;
 }

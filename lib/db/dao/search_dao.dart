@@ -49,5 +49,5 @@ class _SearchDao extends DatabaseAccessor<SongLibDB>
 
   @override
   Future<void> deleteSearch(Search search) =>
-      (delete(db.dbSearchTable)..where((row) => row.id.equals(search.id))).go();
+      (delete(db.dbSearchTable)..where((row) => row.id.equals(search.id!))).go();
 }

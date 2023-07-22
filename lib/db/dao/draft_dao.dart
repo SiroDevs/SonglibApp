@@ -62,7 +62,7 @@ class _DraftDao extends DatabaseAccessor<SongLibDB>
 
   @override
   Future<void> updateDraft(Draft draft) =>
-      (update(db.dbDraftTable)..where((row) => row.id.equals(draft.id))).write(
+      (update(db.dbDraftTable)..where((row) => row.id.equals(draft.id!))).write(
         DbDraftTableCompanion(
           book: Value(draft.book!),
           songNo: Value(draft.songNo!),
@@ -79,5 +79,5 @@ class _DraftDao extends DatabaseAccessor<SongLibDB>
 
   @override
   Future<void> deleteDraft(Draft draft) =>
-      (delete(db.dbDraftTable)..where((row) => row.id.equals(draft.id))).go();
+      (delete(db.dbDraftTable)..where((row) => row.id.equals(draft.id!))).go();
 }

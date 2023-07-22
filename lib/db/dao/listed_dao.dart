@@ -81,19 +81,15 @@ class _ListedDao extends DatabaseAccessor<SongLibDB>
     return results
         .map(
           (result) => Listed(
-            id: const IntType().mapFromDatabaseResponse(result.id)!,
-            objectId:
-                const StringType().mapFromDatabaseResponse(result.objectId)!,
-            song: const IntType().mapFromDatabaseResponse(result.song)!,
-            parentid: const IntType().mapFromDatabaseResponse(result.parentid)!,
-            title: const StringType().mapFromDatabaseResponse(result.title)!,
-            description:
-                const StringType().mapFromDatabaseResponse(result.description)!,
-            position: const IntType().mapFromDatabaseResponse(result.position)!,
-            createdAt:
-                const StringType().mapFromDatabaseResponse(result.createdAt)!,
-            updatedAt:
-                const StringType().mapFromDatabaseResponse(result.updatedAt)!,
+            id: result.id,
+            objectId: result.objectId,
+            song: result.song,
+            parentid: result.parentid,
+            title: result.title,
+            description: result.description,
+            position: result.position,
+            createdAt: result.createdAt,
+            updatedAt: result.updatedAt,
           ),
         )
         .toList();
@@ -128,7 +124,7 @@ class _ListedDao extends DatabaseAccessor<SongLibDB>
 
   @override
   Future<void> updateListed(Listed listed) =>
-      (update(db.dbListedTable)..where((row) => row.id.equals(listed.id)))
+      (update(db.dbListedTable)..where((row) => row.id.equals(listed.id!)))
           .write(
         DbListedTableCompanion(
           parentid: Value(listed.parentid!),
@@ -141,10 +137,10 @@ class _ListedDao extends DatabaseAccessor<SongLibDB>
 
   @override
   Future<void> deleteListed(Listed listed) =>
-      (delete(db.dbListedTable)..where((row) => row.id.equals(listed.id))).go();
+      (delete(db.dbListedTable)..where((row) => row.id.equals(listed.id!))).go();
 
   @override
   Future<void> deleteListedSongs(Listed listed) =>
-      (delete(db.dbListedTable)..where((row) => row.parentid.equals(listed.id)))
+      (delete(db.dbListedTable)..where((row) => row.parentid.equals(listed.id!)))
           .go();
 }

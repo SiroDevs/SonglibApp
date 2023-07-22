@@ -34,12 +34,10 @@ class _HistoryDao extends DatabaseAccessor<SongLibDB>
     return results
         .map(
           (result) => History(
-            id: const IntType().mapFromDatabaseResponse(result.id)!,
-            song: const IntType().mapFromDatabaseResponse(result.song)!,
-            objectId:
-                const StringType().mapFromDatabaseResponse(result.objectId)!,
-            createdAt:
-                const StringType().mapFromDatabaseResponse(result.createdAt)!,
+            id: result.id,
+            song: result.song,
+            objectId: result.objectId,
+            createdAt: result.createdAt,
           ),
         )
         .toList();
@@ -78,6 +76,6 @@ class _HistoryDao extends DatabaseAccessor<SongLibDB>
 
   @override
   Future<void> deleteHistory(History history) =>
-      (delete(db.dbHistoryTable)..where((row) => row.id.equals(history.id)))
+      (delete(db.dbHistoryTable)..where((row) => row.id.equals(history.id!)))
           .go();
 }

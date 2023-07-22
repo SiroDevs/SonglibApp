@@ -2,10 +2,7 @@
 
 part of 'listed_dao.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$_ListedDaoMixin on DatabaseAccessor<SongLibDB> {
   $DbListedTableTable get dbListedTable => attachedDatabase.dbListedTable;
 }

@@ -1,5 +1,3 @@
-import 'package:drift/drift.dart';
-
 class HistoryExt {
   int? id;
   String? createdAt;
@@ -35,21 +33,20 @@ class HistoryExt {
 
   factory HistoryExt.fromData(Map<String, dynamic> data) {
     return HistoryExt(
-      createdAt:
-          const StringType().mapFromDatabaseResponse(data['created_at'])!,
-      id: const IntType().mapFromDatabaseResponse(data['id'])!,
-      book: const IntType().mapFromDatabaseResponse(data['book'])!,
-      songNo: const IntType().mapFromDatabaseResponse(data['song_no'])!,
-      title: const StringType().mapFromDatabaseResponse(data['title'])!,
-      alias: const StringType().mapFromDatabaseResponse(data['alias'])!,
-      content: const StringType().mapFromDatabaseResponse(data['content'])!,
-      key: const StringType().mapFromDatabaseResponse(data['key'])!,
-      author: const StringType().mapFromDatabaseResponse(data['author'])!,
-      views: const IntType().mapFromDatabaseResponse(data['views'])!,
-      likes: const IntType().mapFromDatabaseResponse(data['likes'])!,
-      liked: const BoolType().mapFromDatabaseResponse(data['liked'])!,
-      songId: const IntType().mapFromDatabaseResponse(data['songId'])!,
-      songbook: const StringType().mapFromDatabaseResponse(data['songbook'])!,
+      createdAt: data['created_at'],
+      id: data['id'],
+      book: data['book'],
+      songNo: data['song_no'],
+      title: data['title'],
+      alias: data['alias'],
+      content: data['content'],
+      key: data['key'],
+      author: data['author'],
+      views: data['views'],
+      likes: data['likes'],
+      liked: data['liked'],
+      songId: data['songId'],
+      songbook: data['songbook'],
     );
   }
 }

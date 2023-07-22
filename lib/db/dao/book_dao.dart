@@ -57,7 +57,7 @@ class _BookDao extends DatabaseAccessor<SongLibDB>
 
   @override
   Future<void> updateBook(Book book) =>
-      (update(db.dbBookTable)..where((row) => row.id.equals(book.id))).write(
+      (update(db.dbBookTable)..where((row) => row.id.equals(book.id!))).write(
         DbBookTableCompanion(
           bookNo: Value(book.bookNo!),
           enabled: Value(book.enabled!),
@@ -71,7 +71,7 @@ class _BookDao extends DatabaseAccessor<SongLibDB>
 
   @override
   Future<void> deleteBook(Book book) =>
-      (delete(db.dbBookTable)..where((row) => row.id.equals(book.id))).go();
+      (delete(db.dbBookTable)..where((row) => row.id.equals(book.id!))).go();
 
   @override
   Future<void> deleteBooks() => (delete(db.dbBookTable)).go();

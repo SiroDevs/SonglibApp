@@ -2,10 +2,7 @@
 
 part of 'edit_dao.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$_EditDaoMixin on DatabaseAccessor<SongLibDB> {
   $DbEditTableTable get dbEditTable => attachedDatabase.dbEditTable;
 }
