@@ -1,0 +1,105 @@
+{
+  "login": "Login",
+  "@login": { "description": "" },
+  "justFillLoginForm": "Just fill in some text. There is no validator for the login",
+  "@justFillLoginForm": { "description": "" },
+  "email": "Email",
+  "@email": { "description": "" },
+  "password": "Password",
+  "@password": { "description": "" },
+  "todoTitle": "Todos",
+  "@todoTitle": { "description": "" },
+  "settingsTitle": "Settings",
+  "@settingsTitle": { "description": "" },
+  "animationsTitle": "Animations",
+  "@animationsTitle": { "description": "" },
+  "slowAnimations": "Slow animations",
+  "@slowAnimations": { "description": "" },
+  "selectPlatform": "Select Platform",
+  "@selectPlatform": { "description": "" },
+  "currentPlatform": "Current platfrom: {platform}",
+  "@currentPlatform": {
+    "description": "A message with a single parameter",
+    "placeholders": {
+      "platform": { "type": "String" }
+    }
+  },
+  "selectLanguage": "Select Language",
+  "@selectLanguage": { "description": "" },
+  "currentLanguage": "Current language: {language}",
+  "@currentLanguage": {
+    "description": "A message with a single parameter",
+    "placeholders": {
+      "language": { "type": "String" }
+    }
+  },
+  "selectTheme": "Select Theme",
+  "@selectTheme": { "description": "" },
+  "currentTheme": "Current theme: {theme}",
+  "@currentTheme": {
+    "description": "A message with a single parameter",
+    "placeholders": {
+      "theme": { "type": "String" }
+    }
+  },
+  "licencesTitle": "Licences",
+  "@licencesTitle": { "description": "" },
+  "viewLicences": "View Licences",
+  "@viewLicences": { "description": "" },
+  "systemDefault": "System Default",
+  "@systemDefault": { "description": "" },
+  "darkLabel": "Dark",
+  "@darkLabel": { "description": "" },
+  "lightLabel": "Light",
+  "@lightLabel": { "description": "" },
+  "languageTitle": "Language",
+  "@languageTitle": { "description": "" },
+  "themeTitle": "Theme",
+  "@themeTitle": { "description": "" },
+  "databaseTitle": "Database",
+  "@databaseTitle": { "description": "" },
+  "viewDatabase": "View Database",
+  "@viewDatabase": { "description": "" },
+  "errorBadRequest": "Bad request error",
+  "@errorBadRequest": { "description": "" },
+  "errorDuringDev": "You coded something wrong",
+  "@errorDuringDev": { "description": "" },
+  "errorForbidden": "Forbidden error",
+  "@errorForbidden": { "description": "" },
+  "errorGeneral": "Something went wrong",
+  "@errorGeneral": { "description": "" },
+  "errorGeneralWithCode": "Something went wrong (code: {code})",
+  "@errorGeneralWithCode": {
+    "description": "A message with a single parameter",
+    "placeholders": {
+      "code": {
+        "type": "String",
+        "example": "1232"
+      }
+    }
+  },
+  "errorInternalServer": "Internal server error",
+  "@errorInternalServer": { "description": "" },
+  "errorNoNetwork": "No internet connection available",
+  "@errorNoNetwork": { "description": "" },
+  "errorUnauthorized": "Unauthorized error",
+  "@errorUnauthorized": { "description": "" },
+  "cancelLabel": "Cancel",
+  "@cancelLabel": { "description": "" },
+  "deleteLabel": "Delete",
+  "@deleteLabel": { "description": "" },
+  "noLabel": "No",
+  "@noLabel": { "description": "" },
+  "okLabel": "Ok",
+  "@okLabel": { "description": "" },
+  "saveLabel": "Save",
+  "@saveLabel": { "description": "" },
+  "yesLabel": "Yes",
+  "@yesLabel": { "description": "" },
+  "todoAddInputHint": "Enter your Todo",
+  "@todoAddInputHint": { "description": "" },
+  "todoAddTitle": "Add todo",
+  "@todoAddTitle": { "description": "" },
+  "todoEmptyState": "No data added to your database. Fetch some todos with an api call (download icon) or add one yourself by clicking the add icon.",
+  "@todoEmptyState": { "description": "" }
+}

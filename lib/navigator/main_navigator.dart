@@ -1,34 +1,18 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../view/drafts/draft_editor.dart';
-import '../view/drafts/mobile/draft_presentor.dart';
-import '../view/drafts/pc/draft_presentor_pc.dart';
-import '../view/home/home_screen.dart';
-import '../view/home/home_screen_web.dart';
-import '../view/info/donation_screen.dart';
-import '../view/info/helpdesk_screen.dart';
-import '../view/lists/list_view_screen.dart';
-import '../view/manage/settings_screen.dart';
-import '../view/info/onboarding_screen.dart';
-import '../view/selection/progress_screen.dart';
-import '../view/selection/selection_screen.dart';
-import '../view/songs/mobile/song_editor.dart';
-import '../view/songs/pc/song_editor_pc.dart';
-import '../view/songs/pc/song_presentor_pc.dart';
-import '../view/songs/mobile/song_presentor.dart';
-import '../view/splash_screen.dart';
-import '../util/env/flavor_config.dart';
-import '../view/user/signin_screen.dart';
-import '../view/user/signup_screen.dart';
-import '../view/user/user_screen.dart';
-import '../widget/general/text_scale_factor.dart';
-import 'main_navigation.dart';
+import '../navigator/main_navigation.dart';
+import '../views/home_screen.dart';
+import '../views/splash_screen.dart';
+import '../widgets/text_scale_factor.dart';
+import 'route_names.dart';
 
 class MainNavigator extends StatefulWidget {
   final Widget? child;
 
-  const MainNavigator({this.child, Key? key}) : super(key: key);
+  const MainNavigator({
+    this.child,
+    Key? key,
+  }) : super(key: key);
 
   @override
   MainNavigatorState createState() => MainNavigatorState();
@@ -56,8 +40,7 @@ class MainNavigatorState extends State<MainNavigator> with MainNavigationMixin {
       GlobalKey<NavigatorState>();
   static final List<NavigatorObserver> _navigatorObservers = [];
 
-  static String get initialRoute =>
-      FlavorConfig.isInTest() ? 'test_route' : SplashScreen.routeName;
+  static String get initialRoute => RouteNames.splash;
 
   static GlobalKey<NavigatorState> get navigationKey => _navigationKey;
 
@@ -74,201 +57,51 @@ class MainNavigatorState extends State<MainNavigator> with MainNavigationMixin {
 
   static Route? onGenerateRoute(RouteSettings settings) {
     final strippedPath = settings.name?.replaceFirst('/', '');
-    //final args = settings.arguments as Map;
-    //print(args[0]);
+    final Map<String, WidgetBuilder> routes = {
+      '': (context) => const SplashScreen(),
+      RouteNames.splash: (context) => const SplashScreen(),
+      RouteNames.home: (context) => const HomeScreen(),
+    };
 
-    switch (strippedPath) {
-      case '':
-      case SplashScreen.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const SplashScreen(),
-          settings: settings,
-        );
-      case SelectionScreen.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const SelectionScreen(),
-          settings: settings,
-        );
-      case OnboardingScreen.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const OnboardingScreen(),
-          settings: settings,
-        );
-      case ProgressScreen.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const ProgressScreen(),
-          settings: settings,
-        );
-      case HomeScreen.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) =>
-              kIsWeb ? const HomeScreenWeb() : const HomeScreen(),
-          settings: settings,
-        );
-      case SongPresentor.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const SongPresentor(),
-          settings: settings,
-        );
-      case SongPresentorPc.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const SongPresentorPc(),
-          settings: settings,
-        );
+    defaultRoute(context) => const SplashScreen();
 
-      case DraftPresentor.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const DraftPresentor(),
-          settings: settings,
-        );
-      case DraftPresentorPc.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const DraftPresentorPc(),
-          settings: settings,
-        );
+    WidgetBuilder? getRouteBuilder(String routeName) {
+      if (routes.containsKey(routeName)) {
+        return routes[routeName];
+      } else {
+        return defaultRoute;
+      }
+    }
 
-      case SongEditor.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const SongEditor(),
-          settings: settings,
-        );
-      case SongEditorPc.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const SongEditorPc(),
-          settings: settings,
-        );
+    MaterialPageRoute<void> createMaterialPageRoute(
+        WidgetBuilder builder, RouteSettings settings) {
+      return MaterialPageRoute<void>(
+        builder: builder,
+        settings: settings,
+      );
+    }
 
-      case DraftEditor.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const DraftEditor(),
-          settings: settings,
-        );
-
-      case ListViewScreen.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const ListViewScreen(),
-          settings: settings,
-        );
-      case SettingsScreen.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const SettingsScreen(),
-          settings: settings,
-        );
-      case HelpDeskScreen.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const HelpDeskScreen(),
-          settings: settings,
-        );
-      case DonationScreen.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const DonationScreen(),
-          settings: settings,
-        );
-
-      case UserScreen.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const UserScreen(),
-          settings: settings,
-        );
-      case SigninScreen.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const SigninScreen(),
-          settings: settings,
-        );
-      case SignupScreen.routeName:
-        return MaterialPageRoute<void>(
-          builder: (context) => const SignupScreen(),
-          settings: settings,
-        );
-
-      case 'test_route':
-        if (!FlavorConfig.isInTest()) return null;
-        return MaterialPageRoute<void>(
-          builder: (context) => Container(color: Colors.grey),
-          settings: settings,
-        );
-      default:
-        return null;
+    WidgetBuilder? routeBuilder = getRouteBuilder(strippedPath!);
+    if (routeBuilder != null) {
+      return createMaterialPageRoute(routeBuilder, settings);
+    } else {
+      return null;
     }
   }
 
   @override
-  void goToSplash() => navigator.pushReplacementNamed(SplashScreen.routeName);
-
-  @override
-  void goToSelection() =>
-      navigator.pushReplacementNamed(SelectionScreen.routeName);
-
-  @override
-  void goToProgress() =>
-      navigator.pushReplacementNamed(ProgressScreen.routeName);
-
-  @override
-  void goToOnboarding() =>
-      navigator.pushReplacementNamed(OnboardingScreen.routeName);
+  void goToSplash() => navigator.pushReplacementNamed(RouteNames.splash);
 
   @override
   void goToHome() =>
-      navigator.pushNamedAndRemoveUntil(HomeScreen.routeName, (route) => false);
-
-  @override
-  void goToSongPresentor() => navigator.pushNamed(SongPresentor.routeName);
-
-  @override
-  void goToSongPresentorPc() => navigator.pushNamed(SongPresentorPc.routeName);
-
-  @override
-  void goToDraftPresentor() => navigator.pushNamed(DraftPresentor.routeName);
-
-  @override
-  void goToDraftPresentorPc() =>
-      navigator.pushNamed(DraftPresentorPc.routeName);
-
-  @override
-  void goToSongEditor() => navigator.pushNamed(SongEditor.routeName);
-
-  @override
-  void goToSongEditorPc() => navigator.pushNamed(SongEditorPc.routeName);
-
-  @override
-  void goToDraftEditor(bool notEmpty) => navigator.pushNamed(
-        DraftEditor.routeName,
-        arguments: {'not_empty': notEmpty},
-      );
-
-  @override
-  void goToListView() => navigator.pushNamed(ListViewScreen.routeName);
-
-  @override
-  void goToSettings() => navigator.pushNamed(SettingsScreen.routeName);
-
-  @override
-  void goToHelpDesk() => navigator.pushNamed(HelpDeskScreen.routeName);
-
-  @override
-  void goToDonation() => navigator.pushNamed(DonationScreen.routeName);
-
-  @override
-  void goToUser() => navigator.pushNamed(UserScreen.routeName);
-
-  @override
-  void goToSignin() => navigator.pushNamed(SigninScreen.routeName);
-
-  @override
-  void goToSignup() => navigator.pushNamed(SignupScreen.routeName);
-
-  @override
-  void closeDialog() => navigator.pop();
+      navigator.pushNamedAndRemoveUntil(RouteNames.home, (route) => false);
 
   @override
   void goBack<T>({T? result}) => navigator.pop(result);
 
   @override
-  Future<T?> showCustomDialog<T>({required WidgetBuilder builder}) =>
-      showDialog<T>(
-        context: _navigationKey.currentContext!,
-        builder: builder,
-        useRootNavigator: true,
-        barrierColor: Colors.black,
-      );
+  void showCustomDialog<T>({required WidgetBuilder builder}) => showDialog<T>(
+      context: _navigationKey.currentContext!,
+      builder: builder,
+      useRootNavigator: true);
 }

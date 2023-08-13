@@ -3,11 +3,8 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  connectivity_plus
-  desktop_window
-  flutter_platform_alert
+  firebase_core
   flutter_secure_storage_windows
-  sentry_flutter
   sqlite3_flutter_libs
   url_launcher_windows
 )

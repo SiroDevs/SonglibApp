@@ -7,20 +7,10 @@ import 'package:drift/native.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../util/env/flavor_config.dart';
-import '../../util/utilities.dart';
-
 Future<DatabaseConnection> createDriftDatabaseConnection(String name) async {
-  if (FlavorConfig.isInTest()) {
-    return DatabaseConnection.fromExecutor(NativeDatabase.memory());
-  }
-  Directory dbFolder = await getApplicationDocumentsDirectory();
-  if (isDesktop) {
-    dbFolder = await getApplicationSupportDirectory();
-  }
-
+  final dbFolder = await getApplicationDocumentsDirectory();
   final file = File(join(dbFolder.path, '$name.sqlite'));
-
+  
   final receivePort = ReceivePort();
 
   await Isolate.spawn(
@@ -35,7 +25,7 @@ Future<DatabaseConnection> createDriftDatabaseConnection(String name) async {
 void _startBackground(_IsolateStartRequest request) {
   final executor = NativeDatabase(File(request.targetPath));
   final driftIsolate = DriftIsolate.inCurrent(
-    () => DatabaseConnection.fromExecutor(executor),
+    () => DatabaseConnection(executor),
   );
   request.sendDriftIsolate.send(driftIsolate);
 }
