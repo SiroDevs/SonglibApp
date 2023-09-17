@@ -1,11 +1,11 @@
 {
-    "name": "songlib",
-    "short_name": "songlib",
+    "name": "SongLib",
+    "short_name": "SongLib",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "SongLib gives you access to your church songbook/hymns seamlessly that you don't have to worry about even being online once you have set up the app on your device.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 
@@ -9,15 +11,17 @@ abstract class BookWebService {
   @factoryMethod
   factory BookWebService() = BookService;
 
-  Future<Response> getBooksList();
+  Future<Response> fetchBooks();
 }
 
 class BookService implements BookWebService {
   @override
-  Future<Response> getBooksList() async {
+  Future<Response> fetchBooks() async {
     return makeApiGetRequest(
       ApiConstants.book,
-      {'Content-Type': 'application/json'},
+      {
+        'Content-Type': 'application/json',
+      },
     );
   }
 }

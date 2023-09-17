@@ -2,13 +2,6 @@ import 'package:flutter/material.dart';
 
 class AppConstants {
   AppConstants._();
-  
-  static const appName = "SongLib";
-  static const appVersion = "v0.0.7.1";
-  static const appCredits1 = "Jack Siro";
-  static const appCredits2 = "Titus Thumbi";
-  static const IconData whatsapp =
-      IconData(0xf05a6, fontFamily: 'MaterialIcons');
 
   static const siteLink = "https://songlib.vercel.app/";
   static const applestoreLink = "https://apps.apple.com/app/id6446771305";
@@ -22,4 +15,10 @@ class AppConstants {
       "https://www.paypal.com/donate/?hosted_button_id=FYZYTW723Q8QC";
   static const donationPatreaonLink = "https://www.patreon.com/SongLib";
 
+  static const appTitle = "SongLib";
+  static const appVersion = "v0.0.7.1";
+  static const appCredits1 = "Jack Siro";
+  static const appCredits2 = "Titus Thumbi";
+  static const IconData whatsapp =
+      IconData(0xf05a6, fontFamily: 'MaterialIcons');
 }

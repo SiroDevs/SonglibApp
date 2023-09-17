@@ -1,52 +1,18 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:convert';
-import 'dart:developer' as logger show log;
-import 'dart:typed_data';
+import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:path/path.dart' as p;
+import 'package:http/http.dart' as http;
+import 'dart:developer' as logger show log;
 
+import '../model/base/songext.dart';
 import 'constants/api_constants.dart';
 
 bool isDesktop = Platform.isWindows || Platform.isLinux || Platform.isMacOS;
 bool isMobile = Platform.isAndroid || Platform.isIOS || Platform.isFuchsia;
-
-Future<void> saveFile(String path, Uint8List content) async {
-  final file = File(path);
-  await file.writeAsBytes(content);
-}
-
-String getShortPath(String path) {
-  var f = p.split(path);
-  if (f.length > 2) {
-    f = f.sublist(f.length - 2);
-    return ".../${p.joinAll(f)}";
-  }
-  return path;
-}
-
-// download directory
-Future<String> downloadDir() async {
-  String downloadsPath;
-
-  if (Platform.isMacOS) {
-    downloadsPath = '/Users/${Platform.environment['USER']}/Downloads';
-  } else if (Platform.isWindows) {
-    downloadsPath = '${Platform.environment['USERPROFILE']}\\Downloads';
-  } else if (Platform.isLinux) {
-    downloadsPath = '/home/${Platform.environment['USER']}/Downloads';
-  } else if (Platform.isAndroid) {
-    Directory directory = Directory('/storage/emulated/0/Download');
-    downloadsPath = directory.path;
-  } else {
-    // Handle other platforms or fallback
-    downloadsPath = 'Platform not supported';
-  }
-  return downloadsPath;
-}
 
 String dateNow() {
   return DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
@@ -56,10 +22,10 @@ String dateToString(DateTime dateValue) {
   return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateValue);
 }
 
-Future<bool> isKeyboardShowing(BuildContext context) async {
+Future<bool> isKeyboardShowing() async {
   // ignore: unnecessary_null_comparison
   if (WidgetsBinding.instance != null) {
-    return View.of(context).viewInsets.bottom > 0;
+    return WidgetsBinding.instance.window.viewInsets.bottom > 0;
   } else {
     return false;
   }
@@ -111,7 +77,8 @@ String truncateString(int cutoff, String myString) {
       return myString.trim();
     }
   } catch (e) {
-    logger.log(e.toString());
+    // ignore: avoid_print
+    print(e);
     return myString.trim();
   }
 }
@@ -122,49 +89,116 @@ String truncateWithEllipsis(int cutoff, String myString) {
       : '${myString.substring(0, cutoff)}...';
 }
 
-String sanitizeResp(String str) {
-  return str
-      .replaceAll('_', ' ')
-      .replaceAll('{"error":"', '')
-      .replaceAll('"}', '')
-      .camelCase();
+String refineTitle(String textTitle) {
+  return textTitle.replaceAll("''", "'");
 }
 
-extension StringExtension on String {
-  String camelCase() {
-    return "${this[0].toUpperCase()}${substring(1).toLowerCase().replaceAll('_', '')}";
+String refineContent(String contentText) {
+  return contentText.replaceAll("''", "'").replaceAll("#", " ");
+}
+
+String songItemTitle(int number, String title) {
+  if (number != 0) {
+    return "$number. ${refineTitle(title)}";
+  } else {
+    return refineTitle(title);
   }
 }
 
-String getMonthNumber(String month) {
-  switch (month) {
-    case 'Jan':
-      return '01';
-    case 'Feb':
-      return '02';
-    case 'Mar':
-      return '03';
-    case 'Apr':
-      return '04';
-    case 'May':
-      return '05';
-    case 'Jun':
-      return '06';
-    case 'Jul':
-      return '07';
-    case 'Aug':
-      return '08';
-    case 'Sep':
-      return '09';
-    case 'Oct':
-      return '10';
-    case 'Nov':
-      return '11';
-    case 'Dec':
-      return '12';
-    default:
-      return DateFormat('MM').format(DateTime.now());
+List<String> songVerses(String songContent) {
+  List<String> verseList = [];
+  var verses = songContent.split("##");
+
+  for (final verse in verses) {
+    verseList.add(verse.replaceAll("#", "\n"));
   }
+  return verseList;
+}
+
+String songCopyString(String title, String content) {
+  return "$title\n\n$content";
+}
+
+String bookCountString(String title, int count) {
+  return '$title ($count)';
+}
+
+String lyricsString(String lyrics) {
+  return lyrics.replaceAll("#", "\n").replaceAll("''", "'");
+}
+
+String songViewerTitle(int number, String title, String alias) {
+  String songtitle = "$number. ${refineTitle(title)}";
+
+  if (alias.length > 2 && title != alias) {
+    songtitle = "$songtitle (${refineTitle(alias)})";
+  }
+
+  return songtitle;
+}
+
+String songShareString(String title, String content) {
+  return "$title\n\n$content\n\nvia #vSongBook https://Appsmata.com/vSongBook";
+}
+
+String verseOfString(String number, int count) {
+  return 'VERSE $number of $count';
+}
+
+double getFontSize(int characters, double height, double width) {
+  return sqrt((height * width) / characters);
+}
+
+List<SongExt> seachSongByQuery(String query, List<SongExt> songs) {
+  List<SongExt> filtered = [];
+  final qry = query.toLowerCase();
+
+  filtered = songs.where((s) {
+    // Check if the song number matches the query (if query is numeric)
+    if (isNumeric(query) && s.songNo == int.parse(query)) {
+      return true;
+    }
+
+    // Create a regular expression pattern to match "," and "!" characters
+    RegExp charsPtn = RegExp(r'[!,]');
+
+    // Split the query into words if it contains commas
+    List<String> words;
+    if (query.contains(',')) {
+      words = query.split(',');
+      // Trim whitespace from each word
+      words = words.map((w) => w.trim()).toList();
+    } else {
+      words = [qry];
+    }
+
+    // Create a regular expression pattern to match the words in the query
+    RegExp queryPtn = RegExp(words.map((w) => '($w)').join('.*'));
+
+    // Remove "," and "!" characters from s.title, s.alias, and s.content
+    String title = s.title!.replaceAll(charsPtn, '').toLowerCase();
+    //String alias = s.alias!.replaceAll(charsPtn, '').toLowerCase();
+    String content = s.content!.replaceAll(charsPtn, '').toLowerCase();
+
+    // Check if the song title matches the query, ignoring "," and "!" characters
+    if (queryPtn.hasMatch(title)) {
+      return true;
+    }
+
+    // Check if the song alias matches the query, ignoring "," and "!" characters
+    /*if (queryPtn.hasMatch(alias)) {
+      return true;
+    }*/
+
+    // Check if the song content matches the query, ignoring "," and "!" characters
+    if (queryPtn.hasMatch(content)) {
+      return true;
+    }
+
+    return false;
+  }).toList();
+
+  return filtered;
 }
 
 Future<http.Response> makeApiPostRequest(
@@ -172,35 +206,40 @@ Future<http.Response> makeApiPostRequest(
   Map<String, String> headers,
   dynamic requestBody,
 ) async {
-  try {
-    logger.log('Api Request: $endpoint');
-    logger.log('JsonData: ${json.encode(requestBody)}');
+  if (await isConnected()) {
+    try {
+      logger.log('Api Request: ${ApiConstants.baseUrl}$endpoint');
+      logger.log('JsonData: ${json.encode(requestBody)}');
 
-    final response = await http
-        .post(
-      Uri.parse('${ApiConstants.baseUrl}$endpoint'),
-      headers: headers,
-      body: json.encode(requestBody),
-    )
-        .timeout(
-      const Duration(seconds: 30),
-      onTimeout: () {
+      final response = await http
+          .post(
+        Uri.parse('${ApiConstants.baseUrl}$endpoint'),
+        headers: headers,
+        body: json.encode(requestBody),
+      )
+          .timeout(
+        const Duration(seconds: 60),
+        onTimeout: () {
+          logger.log('Timeout occurred. Please try again later.');
+          return http.Response('Timeout occurred', 504);
+        },
+      );
+
+      logger.log('Api Response: [${response.statusCode}] ${response.body}');
+
+      return response;
+    } catch (e) {
+      if (e is TimeoutException) {
         logger.log('Timeout occurred. Please try again later.');
         return http.Response('Timeout occurred', 504);
-      },
-    );
-
-    logger.log('Api Response: [${response.statusCode}] ${response.body}');
-
-    return response;
-  } catch (e) {
-    if (e is TimeoutException) {
-      logger.log('Timeout occurred. Please try again later.');
-      return http.Response('Timeout occurred', 504);
-    } else {
-      logger.log('An error occurred during the HTTP request: $e');
-      return http.Response('Internal server error', 500);
+      } else {
+        logger.log('An error occurred during the HTTP request: $e');
+        return http.Response('Internal server error', 500);
+      }
     }
+  } else {
+    logger.log('No internet connection. Please try again later.');
+    return http.Response('No internet connection', 500);
   }
 }
 
@@ -208,31 +247,36 @@ Future<http.Response> makeApiGetRequest(
   String endpoint,
   Map<String, String> headers,
 ) async {
-  try {
-    final response = await http
-        .get(
-      Uri.parse('${ApiConstants.baseUrl}$endpoint'),
-      headers: headers,
-    )
-        .timeout(
-      const Duration(seconds: 30),
-      onTimeout: () {
+  if (await isConnected()) {
+    try {
+      final response = await http
+          .get(
+        Uri.parse('${ApiConstants.baseUrl}$endpoint'),
+        headers: headers,
+      )
+          .timeout(
+        const Duration(seconds: 60),
+        onTimeout: () {
+          logger.log('Timeout occurred. Please try again later.');
+          return http.Response('Timeout occurred', 504);
+        },
+      );
+
+      logger.log('Api Request: ${ApiConstants.baseUrl}$endpoint');
+      logger.log('Api Response: [${response.statusCode}] ${response.body}');
+
+      return response;
+    } catch (e) {
+      if (e is TimeoutException) {
         logger.log('Timeout occurred. Please try again later.');
         return http.Response('Timeout occurred', 504);
-      },
-    );
-
-    logger.log('Api Request: $endpoint');
-    logger.log('Api Response: [${response.statusCode}] ${response.body}');
-
-    return response;
-  } catch (e) {
-    if (e is TimeoutException) {
-      logger.log('Timeout occurred. Please try again later.');
-      return http.Response('Timeout occurred', 504);
-    } else {
-      logger.log('An error occurred during the HTTP request: $e');
-      return http.Response('Internal server error', 500);
+      } else {
+        logger.log('An error occurred during the HTTP request: $e');
+        return http.Response('Internal server error', 500);
+      }
     }
+  } else {
+    logger.log('No internet connection. Please try again later.');
+    return http.Response('No internet connection', 500);
   }
 }

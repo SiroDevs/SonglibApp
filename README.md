@@ -1,16 +1,35 @@
-# songlib
+# SongLib
 
-A new Flutter project.
+<a href='https://play.google.com/store/apps/details?id=com.songlib'>
+  <img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width='200'/>
+</a>
 
-## Getting Started
+<a href="https://apps.apple.com/app/id6446771305">
+  <img alt='Get it on AppStore' src='https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2019-04-02&kind=iossoftware&bubble=ios_apps' width='200'>
+</a>
 
-This project is a starting point for a Flutter application.
+<a href="https://github.com/Solido/awesome-flutter#components">
+   <img alt="Awesome Flutter" src="https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square" />
+</a>
 
-A few resources to get you started if this is your first Flutter project:
+ SongLib for Android, iOS, Windows
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Screenshots
+<table>
+<tr>
+<td><img src="screenshots/Droid/image1.png" width="200px" /></td>
+<td><img src="screenshots/Droid/image2.png" width="200px" /></td>
+<td><img src="screenshots/Droid/image3.png" width="200px" /></td>
+<td><img src="screenshots/Droid/image4.png" width="200px" /></td>
+<td><img src="screenshots/Droid/image5.png" width="200px" /></td>
+</tr>
+</table>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## How to Run
+```
+flutter pub get
+
+flutter gen-l10n
+
+flutter run
+```

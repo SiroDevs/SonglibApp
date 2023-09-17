@@ -14,8 +14,8 @@ abstract class WebRepository {
     SongWebService songService,
   ) = WebRepo;
 
-  Future<Response> getBooksList();
-  Future<Response> getSongsByBook(String booksId);
+  Future<Response> fetchBooks();
+  Future<Response> fetchSongs(String books);
 }
 
 class WebRepo implements WebRepository {
@@ -23,16 +23,12 @@ class WebRepo implements WebRepository {
   final BookWebService bookApi;
   final SongWebService songApi;
 
-  WebRepo(
-    this.localStorage,
-    this.bookApi,
-    this.songApi,
-  );
+  WebRepo(this.localStorage, this.bookApi, this.songApi);
 
   @override
-  Future<Response> getBooksList() async => await bookApi.getBooksList();
-  
+  Future<Response> fetchBooks() async => await bookApi.fetchBooks();
+
   @override
-  Future<Response> getSongsByBook(String bookApi) async =>
-      await songApi.getSongsByBook(bookApi);
+  Future<Response> fetchSongs(String books) async =>
+      await songApi.fetchSongs(books);
 }

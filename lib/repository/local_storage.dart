@@ -3,6 +3,10 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/constants/pref_constants.dart';
+import '../model/base/book.dart';
+import '../model/base/draft.dart';
+import '../model/base/listed.dart';
+import '../model/base/songext.dart';
 
 @lazySingleton
 abstract class LocalStorage {
@@ -10,7 +14,11 @@ abstract class LocalStorage {
   factory LocalStorage(SharedPreferences preferences) = AppLocalStorage;
 
   ThemeMode getThemeMode();
-  //AgentDetailsData? agentDetailsData;
+  
+  Listed? listed;
+  SongExt? song;
+  Draft? draft;
+  Book? book;
 
   Future<void> updateThemeMode(ThemeMode themeMode);
 
@@ -93,6 +101,15 @@ class AppLocalStorage implements LocalStorage {
     sharedPreferences.setString(settingsKey, settingsValue);
   }
 
-  //@override
-  //AgentDetailsData? agentDetailsData;
+  @override
+  Listed? listed;
+  
+  @override
+  Book? book;
+  
+  @override
+  Draft? draft;
+  
+  @override
+  SongExt? song;
 }
