@@ -17,7 +17,6 @@ import '../../repository/db_repository.dart';
 import '../../repository/local_storage.dart';
 import '../../repository/web_repository.dart';
 import '../../utils/app_utils.dart';
-import '../../utils/constants/pref_constants.dart';
 import '../../utils/data_utils.dart';
 import '../../widgets/general/toast.dart';
 
@@ -63,9 +62,7 @@ class HomeVm with ChangeNotifier {
     navigator = screenNavigator;
     logger.log('Opened HomeView');
 
-    selectedBooks = localStorage.getPrefString(PrefConstants.selectedBooksKey);
-
-     DataUtils.fetchSongs(iApi: api, iDb: db, books: selectedBooks);
+    DataUtils.fetchSongs();
 
     isBusy = true;
     notifyListeners();

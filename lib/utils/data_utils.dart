@@ -4,13 +4,16 @@ import 'dart:isolate';
 
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:songlib/repository/db_repository.dart';
 
+import '../di/injectable.dart';
 import '../model/base/song.dart';
 import '../model/base/songext.dart';
-import '../repository/db_repository.dart';
+import '../repository/local_storage.dart';
 import '../repository/web_repository.dart';
 import '../widgets/general/toast.dart';
 import 'app_utils.dart';
+import 'constants/pref_constants.dart';
 
 class DataUtils {
   DataUtils._();
@@ -34,10 +37,33 @@ class DataUtils {
     );
   }
 
-  static Future<void> readAndParseJson(List<dynamic> args) async {
+  /// Get the list of songs from the api
+  static void fetchSongs() async {
+    final resultPort = ReceivePort();
+    DbRepository db = getIt.get<DbRepository>();
+    WebRepository api = getIt.get<WebRepository>();
+    LocalStorage localStorage = getIt.get<LocalStorage>();
+    String books = localStorage.getPrefString(PrefConstants.selectedBooksKey);
+
+    await Isolate.spawn(
+      fetchAndSaveSongs,
+      [resultPort.sendPort, books, api],
+    );
+    
+    List<Song> songs = await (resultPort.first) as List<Song>;
+    if (songs.isNotEmpty) {
+      logger.log('Savings songs to the db');
+      for (int i = 0; i < songs.length; i++) {
+        db.saveSong(songs[i]);
+      }
+      logger.log('Songs saved to the db successfully');
+    }
+  }
+
+  static Future<void> fetchAndSaveSongs(List<dynamic> args) async {
     SendPort resultPort = args[0];
-    WebRepository api = args[1];
-    String books = args[2];
+    String books = args[1];
+    WebRepository api = args[2];
 
     List<Song>? songs = [];
     var response = await api.fetchSongs(books);
@@ -45,10 +71,6 @@ class DataUtils {
     if (response.statusCode == 200) {
       List<dynamic> dataList = resp['data'];
       songs = dataList.map((item) => Song.fromJson(item)).toList();
-      if (songs.isNotEmpty) {
-        List<dynamic> dataList = resp['data'];
-        songs = dataList.map((item) => Song.fromJson(item)).toList();
-      }
     } else if (response.statusCode == 404) {
       logger.log('Fetching songs data failed with code 404');
     } else if (response.statusCode == 500) {
@@ -62,56 +84,6 @@ class DataUtils {
     }
 
     Isolate.exit(resultPort, songs);
-  }
-
-  static void fetchSongs({
-    required WebRepository iApi,
-    required DbRepository iDb,
-    String? books,
-  }) async {
-    final resultPort = ReceivePort();
-
-    await Isolate.spawn(
-      readAndParseJson,
-      [resultPort.sendPort, iApi, books],
-    );
-    List<Song> songs = [];
-    songs = await (resultPort.first) as List<Song>;
-
-    if (songs.isNotEmpty) {
-      logger.log('Savings songs to the db');
-      for (int i = 0; i < songs.length; i++) {
-        iDb.saveSong(songs[i]);
-      }
-      logger.log('Songs saved to the db successfully');
-    }
-  }
-
-  /// Get the list of songs from the api
-  static Future<List<Song>> fetchSongss(
-      {required WebRepository wmApi, String? books}) async {
-    List<Song>? songs = [];
-    var response = await wmApi.fetchSongs(books!);
-    var resp = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      List<dynamic> dataList = resp['data'];
-      songs = dataList.map((item) => Song.fromJson(item)).toList();
-      if (songs.isNotEmpty) {
-        List<dynamic> dataList = resp['data'];
-        songs = dataList.map((item) => Song.fromJson(item)).toList();
-      }
-    } else if (response.statusCode == 404) {
-      logger.log('Fetching songs data failed with code 404');
-    } else if (response.statusCode == 500) {
-      logger.log(
-          'Internal Server Error: Please check if you are behind a firewall before trying again');
-    } else if (response.statusCode == 504) {
-      logger.log(
-          'Request Timeout: Please check if you are behind a firewall before trying again');
-    } else {
-      logger.log(resp['statusMessage']);
-    }
-    return songs;
   }
 
   static bool isNumeric(String s) {
