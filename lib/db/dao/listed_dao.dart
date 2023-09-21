@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 import '../../model/base/listed.dart';
 import '../../model/base/songext.dart';
 import '../../model/tables/listeds_table.dart';
-import '../../utils/utilities.dart';
+import '../../utils/app_utils.dart';
 import '../app_database.dart';
 
 part 'listed_dao.g.dart';

@@ -59,7 +59,10 @@ class ListTabPcState extends State<ListTabPc> {
           child: ListedItem(
             listed: listed,
             height: size.height,
-            onPressed: () => vm.chooseListed(listed),
+            onPressed: () {
+              vm.localStorage.listed = vm.setListed = listed;
+              vm.fetchListedSongs();
+            },
           ),
         );
       },

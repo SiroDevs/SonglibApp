@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../navigator/main_navigator.dart';
 import '../../theme/theme_colors.dart';
-import '../../utils/utilities.dart';
+import '../../utils/app_utils.dart';
 import '../../viewmodels/home/info_vm.dart';
 
 /// Help desk screen

@@ -11,7 +11,7 @@ import 'di/environments.dart';
 import 'di/injectable.dart';
 import 'navigator/main_navigator.dart';
 import 'theme/theme_data.dart';
-import 'utils/utilities.dart';
+import 'utils/app_utils.dart';
 import 'viewmodels/global_vm.dart';
 
 Future<void> main() async {

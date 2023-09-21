@@ -5,6 +5,7 @@ import '../../di/injectable.dart';
 import '../../model/base/draft.dart';
 import '../../repository/db_repository.dart';
 import '../../repository/local_storage.dart';
+import '../../repository/web_repository.dart';
 import '../home/home_vm.dart';
 
 @injectable
@@ -12,8 +13,9 @@ class DraftEditorVm with ChangeNotifier {
   late final DraftEditorNavigator navigator;
   final LocalStorage localStorage;
   final DbRepository dbRepo;
+  final WebRepository api;
 
-  DraftEditorVm(this.dbRepo, this.localStorage);
+  DraftEditorVm(this.api, this.dbRepo, this.localStorage);
 
   HomeVm? homeVm;
   Draft? draft;
@@ -29,7 +31,7 @@ class DraftEditorVm with ChangeNotifier {
   Future<void> init(DraftEditorNavigator screenNavigator) async {
     navigator = screenNavigator;
 
-    homeVm = HomeVm(dbRepo, localStorage);
+    homeVm = HomeVm(api, dbRepo, localStorage);
     homeVm = getIt.get<HomeVm>();
     await loadEditor();
   }
@@ -185,7 +187,6 @@ class DraftEditorVm with ChangeNotifier {
       //await onBackPressed();
     }
   }
-
 }
 
 abstract class DraftEditorNavigator {}

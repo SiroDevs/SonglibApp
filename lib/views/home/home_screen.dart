@@ -17,7 +17,8 @@ import '../../theme/theme_assets.dart';
 import '../../theme/theme_colors.dart';
 import '../../theme/theme_styles.dart';
 import '../../utils/constants/app_constants.dart';
-import '../../utils/utilities.dart';
+import '../../utils/app_utils.dart';
+import '../../utils/data_utils.dart';
 import '../../viewmodels/home/home_vm.dart';
 import '../../widgets/action/sidebar.dart';
 import '../../widgets/general/app_bar.dart';
@@ -87,7 +88,7 @@ class HomeScreenState extends State<HomeScreen>
             children: [
               FadingIndexedStack(
                 duration: Durations.slow,
-                index: vm.pages.indexOf(vm.setPage),
+                index: pages.indexOf(vm.setPage),
                 children: <Widget>[
                   ListTabPc(vm),
                   SearchTabPc(vm),
@@ -102,7 +103,12 @@ class HomeScreenState extends State<HomeScreen>
                   .animate(.35.seconds, Curves.bounceIn),
               Sidebar(
                 pageType: vm.setPage,
-                onPageSelect: (page) => vm.setCurrentPage(page),
+                onPageSelect: (page) {
+                  setState(() {
+                    vm.setPage = page;
+                    vm.searchController!.clear();
+                  });
+                },
               )
                   .positioned(
                       left: 0, top: 0, bottom: 0, width: 300, animate: true)

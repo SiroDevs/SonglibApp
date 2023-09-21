@@ -6,7 +6,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../model/base/book.dart';
-import '../../model/base/song.dart';
 import '../../model/general/general.dart';
 import '../../repository/db_repository.dart';
 import '../../repository/local_storage.dart';
@@ -33,7 +32,6 @@ class SelectionVm with ChangeNotifier {
   bool isBusy = false, failure = false, success = false, hasError = false;
 
   String selectedBooks = "", predistinatedBooks = "";
-  List<Song>? songs = [];
   List<String> newBooks = [], oldBooks = [], predistinated = [], selected = [];
   List<int> bookNos = [];
 
@@ -112,19 +110,19 @@ class SelectionVm with ChangeNotifier {
     isBusy = true;
     notifyListeners();
 
-    //try {
-    if (selectedBooks.isNotEmpty) {
-      await db.removeBooks();
-      localStorage.setPrefString(
-          PrefConstants.predistinatedBooksKey, selectedBooks);
-      selectedBooks = "";
-    }
-    for (int i = 0; i < selectables.length; i++) {
-      final Book book = selectables[i]!.data;
-      selectedBooks = "$selectedBooks${book.bookNo},";
-      await db.saveBook(book);
-    }
-    //} catch (_) {}
+    try {
+      if (selectedBooks.isNotEmpty) {
+        await db.removeBooks();
+        localStorage.setPrefString(
+            PrefConstants.predistinatedBooksKey, selectedBooks);
+        selectedBooks = "";
+      }
+      for (int i = 0; i < selectables.length; i++) {
+        final Book book = selectables[i]!.data;
+        selectedBooks = "$selectedBooks${book.bookNo},";
+        await db.saveBook(book);
+      }
+    } catch (_) {}
 
     try {
       selectedBooks = selectedBooks.substring(0, selectedBooks.length - 1);
@@ -136,87 +134,12 @@ class SelectionVm with ChangeNotifier {
     notifyListeners();
 
     localStorage.setPrefString(PrefConstants.selectedBooksKey, selectedBooks);
-    fetchAndSaveSongs();
-  }
-
-  /// Get the list of songs and save them
-  Future<void> fetchAndSaveSongs() async {
-    currentPage = 1;
-    isBusy = true;
-    notifyListeners();
-    var response = await api.fetchSongs(selectedBooks);
-
-    isBusy = false;
-    notifyListeners();
-    var resp = jsonDecode(response.body);
-
-    if (response.statusCode == 200) {
-      List<dynamic> dataList = resp['data'];
-      songs = dataList.map((item) => Song.fromJson(item)).toList();
-
-      if (songs!.isNotEmpty) {
-        logger.log('Savings songs to the db');
-        for (int i = 0; i < songs!.length; i++) {
-          try {
-            progress = (i / songs!.length * 100).toInt();
-            switch (progress) {
-              case 1:
-                state = "On your\nmarks ...";
-                break;
-              case 5:
-                state = "Set,\nReady ...";
-                break;
-              case 10:
-                state = "Loading\nsongs ...";
-                break;
-              case 20:
-                state = "Patience\npays ...";
-                break;
-              case 40:
-                state = "Loading\nsongs ...";
-                break;
-              case 75:
-                state = "Thanks for\nyour patience!";
-                break;
-              case 85:
-                state = "Finishing up";
-                break;
-              case 95:
-                state = "Almost done ...";
-                break;
-            }
-            notifyListeners();
-
-            await db.saveSong(songs![i]);
-          } catch (e) {
-            logger.log(e.toString());
-          }
-          logger.log(state);
-        }
-      }
-    } else if (response.statusCode == 404) {
-      manageFeedBack(
-          false, true, '', 'Fetching songs data failed with code 404');
-    } else if (response.statusCode == 500) {
-      manageFeedBack(
-          false, true, tr!.labelError500, tr!.labelErrorConnectionText);
-    } else if (response.statusCode == 504) {
-      manageFeedBack(
-          false, true, tr!.labelError504, tr!.labelErrorConnectionText);
-    } else {
-      manageFeedBack(false, true, '', resp['statusMessage']);
-    }
-
     localStorage.setPrefBool(PrefConstants.dataLoadedCheckKey, true);
     localStorage.setPrefBool(PrefConstants.wakeLockCheckKey, true);
-
-    /*if (onBoarded) {
-      navigator.goToHome();
-    } else {
-      navigator.goToOnboarding();
-    }*/
+    
     navigator.goToHome();
   }
+
 }
 
 abstract class SelectionNavigator {

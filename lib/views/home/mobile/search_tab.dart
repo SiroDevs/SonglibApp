@@ -37,13 +37,13 @@ class SearchTab extends StatelessWidget {
               ContextMenuButtonConfig(
                 tr.copySong,
                 icon: const Icon(Icons.copy, size: 20),
-                onPressed: () => vm.copySong(song),
+                onPressed: () => DataUtils.copySong(song),
               ),
               // Displays a context menu to share the song title and number
               ContextMenuButtonConfig(
                 tr.shareSong,
                 icon: const Icon(Icons.share, size: 20),
-                onPressed: () => vm.shareSong(song),
+                onPressed: () => DataUtils.shareSong(song),
               ),
               // Displays an option to edit the song
               ContextMenuButtonConfig(

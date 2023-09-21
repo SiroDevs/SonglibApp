@@ -106,14 +106,17 @@ Future<_i1.GetIt> $initGetIt(
         get<_i20.SongDao>(),
       ));
   gh.factory<_i26.DraftEditorVm>(() => _i26.DraftEditorVm(
+        get<_i22.WebRepository>(),
         get<_i25.DbRepository>(),
         get<_i15.LocalStorage>(),
       ));
   gh.factory<_i27.DraftPresentorVm>(() => _i27.DraftPresentorVm(
+        get<_i22.WebRepository>(),
         get<_i25.DbRepository>(),
         get<_i15.LocalStorage>(),
       ));
   gh.singleton<_i28.HomeVm>(_i28.HomeVm(
+    get<_i22.WebRepository>(),
     get<_i25.DbRepository>(),
     get<_i15.LocalStorage>(),
   ));
@@ -128,6 +131,7 @@ Future<_i1.GetIt> $initGetIt(
         get<_i15.LocalStorage>(),
       ));
   gh.factory<_i32.ListViewVm>(() => _i32.ListViewVm(
+        get<_i22.WebRepository>(),
         get<_i25.DbRepository>(),
         get<_i15.LocalStorage>(),
       ));
@@ -141,10 +145,12 @@ Future<_i1.GetIt> $initGetIt(
         get<_i15.LocalStorage>(),
       ));
   gh.factory<_i35.SongEditorVm>(() => _i35.SongEditorVm(
+        get<_i22.WebRepository>(),
         get<_i25.DbRepository>(),
         get<_i15.LocalStorage>(),
       ));
   gh.factory<_i36.SongPresentorVm>(() => _i36.SongPresentorVm(
+        get<_i22.WebRepository>(),
         get<_i25.DbRepository>(),
         get<_i15.LocalStorage>(),
       ));

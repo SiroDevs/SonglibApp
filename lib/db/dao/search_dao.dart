@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../model/base/search.dart';
 import '../../model/tables/searchs_table.dart';
-import '../../utils/utilities.dart';
+import '../../utils/app_utils.dart';
 import '../app_database.dart';
 
 part 'search_dao.g.dart';

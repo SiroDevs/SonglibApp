@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../model/base/draft.dart';
 import '../../model/tables/drafts_table.dart';
-import '../../utils/utilities.dart';
+import '../../utils/app_utils.dart';
 import '../app_database.dart';
 
 part 'draft_dao.g.dart';

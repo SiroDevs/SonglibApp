@@ -6,6 +6,7 @@ import '../../di/injectable.dart';
 import '../../model/base/songext.dart';
 import '../../repository/db_repository.dart';
 import '../../repository/local_storage.dart';
+import '../../repository/web_repository.dart';
 import '../home/home_vm.dart';
 
 @injectable
@@ -13,8 +14,9 @@ class SongEditorVm with ChangeNotifier {
   late final SongEditorNavigator navigator;
   final LocalStorage localStorage;
   final DbRepository dbRepo;
+  final WebRepository api;
 
-  SongEditorVm(this.dbRepo, this.localStorage);
+  SongEditorVm(this.api, this.dbRepo, this.localStorage);
 
   HomeVm? homeVm;
   SongExt? song;
@@ -34,7 +36,7 @@ class SongEditorVm with ChangeNotifier {
 
     song = localStorage.song;
 
-    homeVm = HomeVm(dbRepo, localStorage);
+    homeVm = HomeVm(api, dbRepo, localStorage);
     homeVm = getIt.get<HomeVm>();
     await loadEditor();
   }
@@ -82,7 +84,7 @@ class SongEditorVm with ChangeNotifier {
           song!.key = key;
           await dbRepo.editSong(song!);
         }
-    } catch (exception) {}
+      } catch (exception) {}
 
       await onBackPressed();
       isBusy = false;

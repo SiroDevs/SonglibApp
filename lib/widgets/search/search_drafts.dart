@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../model/base/draft.dart';
-import '../../utils/utilities.dart';
+import '../../utils/data_utils.dart';
 import '../../viewmodels/home/home_vm.dart';
-import '../../../../widgets/general/list_items.dart';
+import '../general/list_items.dart';
 
 class SearchDrafts extends SearchDelegate<List> {
   List<Draft> itemList = [], filtered = [];
@@ -54,7 +54,7 @@ class SearchDrafts extends SearchDelegate<List> {
   Widget buildResults(BuildContext context) {
     List<Draft> matchQuery = [];
     for (var item in itemList) {
-      if (isNumeric(query)) {
+      if (DataUtils.isNumeric(query)) {
         matchQuery.add(item);
       } else if (item.title!.toLowerCase().contains(query.toLowerCase())) {
         matchQuery.add(item);

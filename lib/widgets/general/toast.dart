@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../utils/utilities.dart';
+import '../../utils/app_utils.dart';
 
 void showToast({
   String? text,

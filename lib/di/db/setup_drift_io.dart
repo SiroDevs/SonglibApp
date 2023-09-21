@@ -8,7 +8,7 @@ import 'package:drift/native.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../utils/utilities.dart';
+import '../../utils/app_utils.dart';
 
 Future<DatabaseConnection> createDriftDatabaseConnection(String name) async {
   Directory dbFolder = await getApplicationDocumentsDirectory();

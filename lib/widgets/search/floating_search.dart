@@ -4,7 +4,7 @@ import 'package:styled_widget/styled_widget.dart';
 import '../../model/base/songext.dart';
 import '../../theme/theme_colors.dart';
 import '../../theme/theme_styles.dart';
-import '../../utils/utilities.dart';
+import '../../utils/data_utils.dart';
 import '../general/list_items.dart';
 
 class FloatingSearch extends StatefulWidget {
@@ -86,7 +86,7 @@ class FloatingSearchState extends State<FloatingSearch> {
         textInputAction: TextInputAction.done,
         onChanged: (String query) {
           setState(
-            () => filtered = seachSongByQuery(query, widget.items),
+            () => filtered = DataUtils.seachSongByQuery(query, widget.items),
           );
         },
       ),

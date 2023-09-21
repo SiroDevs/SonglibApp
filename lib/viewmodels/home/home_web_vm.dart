@@ -10,7 +10,8 @@ import '../../model/general/general.dart';
 import '../../repository/db_repository.dart';
 import '../../repository/local_storage.dart';
 import '../../repository/web_repository.dart';
-import '../../utils/utilities.dart';
+import '../../utils/app_utils.dart';
+import '../../utils/data_utils.dart';
 import '../../widgets/general/toast.dart';
 
 @injectable
@@ -166,7 +167,7 @@ class HomeWebVm with ChangeNotifier {
           break;
         case PageType.search:
           isSearching = true;
-          filtered = seachSongByQuery(query, songs!);
+          filtered = DataUtils.seachSongByQuery(query, songs!);
           break;
         case PageType.likes:
           if (query.isNotEmpty) {}

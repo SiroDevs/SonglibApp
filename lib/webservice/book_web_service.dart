@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 
 import '../utils/constants/api_constants.dart';
-import '../utils/utilities.dart';
+import '../utils/app_utils.dart';
 
 @lazySingleton
 abstract class BookWebService {

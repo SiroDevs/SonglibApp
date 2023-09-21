@@ -1,43 +1,48 @@
+import 'dart:async';
+import 'dart:developer' as logger show log;
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_platform_alert/flutter_platform_alert.dart';
 import 'package:injectable/injectable.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../model/base/book.dart';
 import '../../model/base/draft.dart';
 import '../../model/base/listed.dart';
 import '../../model/base/listedext.dart';
+import '../../model/base/song.dart';
 import '../../model/base/songext.dart';
 import '../../model/general/general.dart';
 import '../../repository/db_repository.dart';
 import '../../repository/local_storage.dart';
+import '../../repository/web_repository.dart';
+import '../../utils/app_utils.dart';
 import '../../utils/constants/pref_constants.dart';
-import '../../utils/utilities.dart';
+import '../../utils/data_utils.dart';
 import '../../widgets/general/toast.dart';
 
 @singleton
 class HomeVm with ChangeNotifier {
   late final HomeNavigator navigator;
-  final DbRepository dbRepo;
+  final WebRepository api;
+  final DbRepository db;
   final LocalStorage localStorage;
 
-  HomeVm(this.dbRepo, this.localStorage);
+  HomeVm(this.api, this.db, this.localStorage);
   AppLocalizations? tr;
 
   bool isBusy = false, isMiniLoading = false;
-  bool isSearching = false, shownUpdateHint = false;
-  bool isLoggedIn = false;
+  bool isSearching = false, shownUpdateHint = false, isLoggedIn = false;
   int currentPage = 1, dateDiff = 0;
   BuildContext? context;
 
   List<Book>? books = [];
 
+  String selectedBooks = "";
   String songTitle = 'Song Title', songTitleL = 'Song Title';
-  String currentUpdate = 'update68', timeInstalled = "";
   List<SongExt>? filtered = [], songs = [], likes = [], listSongs = [];
   List<String> verses = [], versesLike = [], versesDraft = [];
+  List<Song>? apiSongs = [];
 
   List<ListedExt>? listedSongs = [];
   List<Listed>? listeds = [];
@@ -50,73 +55,29 @@ class HomeVm with ChangeNotifier {
   Listed setListed = Listed();
 
   TextEditingController? searchController = TextEditingController();
-  TextEditingController? titleController, contentController;
+  TextEditingController? titleController = TextEditingController();
+  TextEditingController? contentController = TextEditingController();
   PageType setPage = PageType.search;
 
-  List<PageType> pages = [
-    PageType.lists,
-    PageType.search,
-    PageType.likes,
-    PageType.drafts,
-    //PageType.helpdesk,
-    //PageType.settings,
-  ];
   Future<void> init(HomeNavigator screenNavigator) async {
     navigator = screenNavigator;
+    logger.log('Opened HomeView');
 
-    titleController = TextEditingController();
-    contentController = TextEditingController();
-    shownUpdateHint = localStorage.getPrefBool(currentUpdate);
+    selectedBooks = localStorage.getPrefString(PrefConstants.selectedBooksKey);
 
-    await fetchData();
-    isLoggedIn = localStorage.getPrefBool(PrefConstants.isLoggedIn);
-    timeInstalled = localStorage.getPrefString(PrefConstants.dateInstalledKey);
-    var dateValue = DateTime.parse(timeInstalled);
-    dateDiff = DateTime.now().difference(dateValue).inDays;
-    
-    /*if (!shownUpdateHint) {
-      var result = await FlutterPlatformAlert.showCustomAlert(
-        windowTitle: tr!.hintsCurrentUpdate,
-        text: tr!.hintsCurrentUpdateText,
-        iconStyle: IconStyle.information,
-        //neutralButtonTitle: tr!.donate,
-        positiveButtonTitle: tr!.okay,
-      );
-      if (result == CustomButton.neutralButton) {
-        localStorage.setPrefBool(currentUpdate, true);
-        navigator.goToDonation();
-      }
-      if (result == CustomButton.positiveButton) {
-        localStorage.setPrefBool(currentUpdate, true);
-      }
-    }*/
-  }
+     DataUtils.fetchSongs(iApi: api, iDb: db, books: selectedBooks);
 
-  void setCurrentPage(PageType page) async {
-    setPage = page;
-    searchController!.clear();
-    notifyListeners();
-  }
-
-  /// Get the data from the DB
-  Future<void> fetchData({bool showLoading = true}) async {
-    if (showLoading) isBusy = true;
+    isBusy = true;
     notifyListeners();
 
-    books = await dbRepo.fetchBooks();
-    songs = await dbRepo.fetchSongs();
-    likes = await dbRepo.fetchLikedSongs();
-    listeds = await dbRepo.fetchListeds();
-    drafts = await dbRepo.fetchDrafts();
+    books = await db.fetchBooks();
+    songs = await db.fetchSongs();
+    likes = await db.fetchLikedSongs();
+    listeds = await db.fetchListeds();
+    drafts = await db.fetchDrafts();
     await selectSongbook(books![0]);
 
     isBusy = false;
-    notifyListeners();
-  }
-
-  void chooseListed(Listed listed) {
-    localStorage.listed = setListed = listed;
-    fetchListedSongs();
     notifyListeners();
   }
 
@@ -144,7 +105,7 @@ class HomeVm with ChangeNotifier {
   Future<void> fetchListedData({bool showLoading = true}) async {
     if (showLoading) isBusy = true;
     notifyListeners();
-    listeds = await dbRepo.fetchListeds();
+    listeds = await db.fetchListeds();
     setListed = listeds![0];
     isBusy = false;
     notifyListeners();
@@ -155,7 +116,7 @@ class HomeVm with ChangeNotifier {
     isMiniLoading = true;
     notifyListeners();
 
-    listedSongs = await dbRepo.fetchListedSongs(setListed.id!);
+    listedSongs = await db.fetchListedSongs(setListed.id!);
     listSongs!.clear();
     for (var listed in listedSongs!) {
       listSongs!.add(
@@ -180,22 +141,11 @@ class HomeVm with ChangeNotifier {
     notifyListeners();
   }
 
-  /// Get the song data from the DB
-  Future<void> fetchSearchData({bool showLoading = true}) async {
-    if (showLoading) isBusy = true;
-    notifyListeners();
-    books = await dbRepo.fetchBooks();
-    songs = await dbRepo.fetchSongs();
-    await selectSongbook(books![0]);
-    isBusy = false;
-    notifyListeners();
-  }
-
   /// Get the notes data from the DB
   Future<void> fetchDraftsData({bool showLoading = true}) async {
     if (showLoading) isBusy = true;
     notifyListeners();
-    drafts = await dbRepo.fetchDrafts();
+    drafts = await db.fetchDrafts();
     setDraft = drafts![0];
     isBusy = false;
     notifyListeners();
@@ -228,7 +178,7 @@ class HomeVm with ChangeNotifier {
     notifyListeners();
 
     try {
-      likes = await dbRepo.fetchLikedSongs();
+      likes = await db.fetchLikedSongs();
       setLiked = likes![0];
     } catch (exception) {}
 
@@ -237,28 +187,12 @@ class HomeVm with ChangeNotifier {
   }
 
   /// Add a song to liked songs
-  Future<void> likeSongx(SongExt song) async {
-    bool isLiked = song.liked!;
-    isLiked = !isLiked;
-    song.liked = isLiked;
-    await dbRepo.editSong(song);
-    await fetchLikedSongs(showLoading: false);
-    if (isLiked) {
-      showToast(
-        text: '${song.title} ${tr!.songLiked}',
-        state: ToastStates.success,
-      );
-    }
-    notifyListeners();
-  }
-
-  /// Add a song to liked songs
   Future<void> likeSong(SongExt song) async {
     bool isLiked = false;
     isLiked = !isLiked;
     song.liked = isLiked;
-    await dbRepo.editSong(song);
-    likes = await dbRepo.fetchLikedSongs();
+    await db.editSong(song);
+    likes = await db.fetchLikedSongs();
     if (setSong.liked!) {
       showToast(
         text: '${song.title} ${tr!.songLiked}',
@@ -268,26 +202,6 @@ class HomeVm with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> copySong(SongExt song) async {
-    await Clipboard.setData(ClipboardData(
-      text:
-          '${songItemTitle(song.songNo!, song.title!)}\n${refineTitle(song.songbook!)}'
-          '\n\n${song.content!.replaceAll("#", "\n")}',
-    ));
-    showToast(
-      text: '${song.title} ${tr!.songCopied}',
-      state: ToastStates.success,
-    );
-  }
-
-  Future<void> shareSong(SongExt song) async {
-    await Share.share(
-      '${songItemTitle(song.songNo!, song.title!)}\n${refineTitle(song.songbook!)}'
-      '\n\n${song.content!.replaceAll("#", "\n")}',
-      subject: tr!.shareVerse,
-    );
-  }
-
   void onSearch(String query) async {
     if (query.isNotEmpty) {
       switch (setPage) {
@@ -295,7 +209,7 @@ class HomeVm with ChangeNotifier {
           break;
         case PageType.search:
           isSearching = true;
-          filtered = seachSongByQuery(query, songs!);
+          filtered = DataUtils.seachSongByQuery(query, songs!);
           break;
         case PageType.likes:
           if (query.isNotEmpty) {}
@@ -310,12 +224,6 @@ class HomeVm with ChangeNotifier {
     notifyListeners();
   }
 
-  void onClear() async {
-    filtered = songs;
-    searchController!.clear();
-    notifyListeners();
-  }
-
   /// Save changes for a listed be it a new one or simply updating an old one
   Future<void> saveListChanges() async {
     if (titleController!.text.isNotEmpty) {
@@ -323,7 +231,7 @@ class HomeVm with ChangeNotifier {
       notifyListeners();
       setListed.title = titleController!.text;
       setListed.description = contentController!.text;
-      await dbRepo.editListed(setListed);
+      await db.editListed(setListed);
       showToast(
         text: '${setListed.title} ${tr!.listUpdated}',
         state: ToastStates.success,
@@ -345,7 +253,7 @@ class HomeVm with ChangeNotifier {
     if (result == CustomButton.positiveButton) {
       localStorage.listed = setListed = Listed();
       listSongs!.clear();
-      dbRepo.removeListed(listed.id!);
+      db.removeListed(listed.id!);
       await fetchListedData(showLoading: false);
       showToast(
         text: '${listed.title} ${tr!.deleted}',
@@ -359,7 +267,7 @@ class HomeVm with ChangeNotifier {
     isMiniLoading = true;
     notifyListeners();
 
-    await dbRepo.saveListedSong(setListed, song);
+    await db.saveListedSong(setListed, song);
     await fetchListedSongs();
     showToast(
       text: '${song.title}${tr!.songAddedToList}${setListed.title} list',
@@ -380,7 +288,7 @@ class HomeVm with ChangeNotifier {
         title: titleController!.text,
         description: contentController!.text,
       );
-      await dbRepo.saveListed(listed);
+      await db.saveListed(listed);
       await fetchListedData(showLoading: false);
       showToast(
         text: '${listed.title} ${tr!.listCreated}',
@@ -393,9 +301,7 @@ class HomeVm with ChangeNotifier {
   }
 
   /// rebuild the widget tree
-  void rebuild() async {
-    notifyListeners();
-  }
+  void rebuild() async => notifyListeners();
 }
 
 abstract class HomeNavigator {

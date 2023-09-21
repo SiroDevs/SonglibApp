@@ -9,7 +9,7 @@ import '../../model/base/listed.dart';
 import '../../model/base/songext.dart';
 import '../../theme/theme_colors.dart';
 import '../../theme/theme_styles.dart';
-import '../../utils/utilities.dart';
+import '../../utils/app_utils.dart';
 import 'labels.dart';
 
 var locale = 'en';

@@ -5,11 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "songlib",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
             "name": "songlib-dev",
             "request": "launch",
             "type": "dart",

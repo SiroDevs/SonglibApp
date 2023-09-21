@@ -9,9 +9,10 @@ import '../../di/injectable.dart';
 import '../../model/base/draft.dart';
 import '../../repository/db_repository.dart';
 import '../../repository/local_storage.dart';
+import '../../repository/web_repository.dart';
 import '../../theme/theme_colors.dart';
 import '../../utils/constants/pref_constants.dart';
-import '../../utils/utilities.dart';
+import '../../utils/app_utils.dart';
 import '../../widgets/action/buttons.dart';
 import '../../widgets/general/labels.dart';
 import '../../widgets/general/toast.dart';
@@ -21,8 +22,9 @@ import '../home/home_vm.dart';
 class DraftPresentorVm with ChangeNotifier {
   final LocalStorage localStorage;
   final DbRepository dbRepo;
+  final WebRepository api;
 
-  DraftPresentorVm(this.dbRepo, this.localStorage);
+  DraftPresentorVm(this.api, this.dbRepo, this.localStorage);
 
   late final DraftPresentorNavigator navigator;
   late HomeVm homeVm;
@@ -54,7 +56,7 @@ class DraftPresentorVm with ChangeNotifier {
         localStorage.getPrefBool(PrefConstants.slideHorizontalKey);
     if (enableWakeLock) await Wakelock.enable();
 
-    homeVm = HomeVm(dbRepo, localStorage);
+    homeVm = HomeVm(api, dbRepo, localStorage);
     homeVm = getIt.get<HomeVm>();
     await loadPresentor();
     if (isDesktop && !shownPcHints) hintsDialog(context!);
@@ -212,7 +214,6 @@ class DraftPresentorVm with ChangeNotifier {
       ),
     );
   }
-
 }
 
 abstract class DraftPresentorNavigator {

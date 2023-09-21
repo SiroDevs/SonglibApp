@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../repository/local_storage.dart';
 import '../../utils/constants/app_constants.dart';
 import '../../utils/constants/pref_constants.dart';
-import '../../utils/date_util.dart';
+import '../../utils/date_utils.dart';
 import '../../widgets/general/toast.dart';
 
 @injectable

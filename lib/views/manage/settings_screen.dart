@@ -6,7 +6,7 @@ import 'package:timeago/timeago.dart' as timeago;
 
 import '../../navigator/main_navigator.dart';
 import '../../theme/theme_colors.dart';
-import '../../utils/utilities.dart';
+import '../../utils/app_utils.dart';
 import '../../viewmodels/global_vm.dart';
 import '../../viewmodels/manage/settings_vm.dart';
 

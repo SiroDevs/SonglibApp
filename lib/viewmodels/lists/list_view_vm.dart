@@ -8,6 +8,7 @@ import '../../model/base/listedext.dart';
 import '../../model/base/songext.dart';
 import '../../repository/db_repository.dart';
 import '../../repository/local_storage.dart';
+import '../../repository/web_repository.dart';
 import '../../widgets/general/toast.dart';
 import '../home/home_vm.dart';
 
@@ -16,8 +17,9 @@ class ListViewVm with ChangeNotifier {
   late final ListViewNavigator navigator;
   final LocalStorage localStorage;
   final DbRepository dbRepo;
+  final WebRepository api;
 
-  ListViewVm(this.dbRepo, this.localStorage);
+  ListViewVm(this.api, this.dbRepo, this.localStorage);
 
   AppLocalizations? tr;
   HomeVm? homeVm;
@@ -34,7 +36,7 @@ class ListViewVm with ChangeNotifier {
     navigator = screenNavigator;
 
     listed = localStorage.listed;
-    homeVm = HomeVm(dbRepo, localStorage);
+    homeVm = HomeVm(api, dbRepo, localStorage);
     homeVm = getIt.get<HomeVm>();
     titleController = TextEditingController(text: listed!.title ?? '');
     contentController = TextEditingController(text: listed!.description ?? '');

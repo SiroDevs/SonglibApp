@@ -11,8 +11,9 @@ import '../../model/base/history.dart';
 import '../../model/base/songext.dart';
 import '../../repository/db_repository.dart';
 import '../../repository/local_storage.dart';
+import '../../repository/web_repository.dart';
 import '../../utils/constants/pref_constants.dart';
-import '../../utils/utilities.dart';
+import '../../utils/app_utils.dart';
 import '../../widgets/general/labels.dart';
 import '../../widgets/general/toast.dart';
 import '../home/home_vm.dart';
@@ -21,8 +22,9 @@ import '../home/home_vm.dart';
 class SongPresentorVm with ChangeNotifier {
   final LocalStorage localStorage;
   final DbRepository dbRepo;
+  final WebRepository api;
 
-  SongPresentorVm(this.dbRepo, this.localStorage);
+  SongPresentorVm(this.api, this.dbRepo, this.localStorage);
 
   late final SongPresentorNavigator navigator;
   late HomeVm homeVm;
@@ -56,7 +58,7 @@ class SongPresentorVm with ChangeNotifier {
 
     isBusy = true;
     notifyListeners();
-    homeVm = HomeVm(dbRepo, localStorage);
+    homeVm = HomeVm(api, dbRepo, localStorage);
     homeVm = getIt.get<HomeVm>();
     fSize = (size!.height * 0.0489).toDouble();
     await loadPresentor();

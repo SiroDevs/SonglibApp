@@ -85,7 +85,7 @@ Future<void> editListForm(BuildContext context, HomeVm vm) async {
               vm.rebuild();
               vm.setListed.title = vm.titleController!.text;
               vm.setListed.description = vm.contentController!.text;
-              await vm.dbRepo.editListed(vm.setListed);
+              await vm.db.editListed(vm.setListed);
               showToast(
                 text: '${vm.setListed.title} ${vm.tr!.listUpdated}',
                 state: ToastStates.success,
@@ -128,7 +128,7 @@ Future<void> confirmDelete(BuildContext context, HomeVm vm) async {
               state: ToastStates.success,
             );
             Navigator.pop(context);
-            vm.dbRepo.removeListed(vm.setListed.id!);
+            vm.db.removeListed(vm.setListed.id!);
             vm.fetchListedData();
           },
           child: const Text("DELETE"),
@@ -146,7 +146,7 @@ Future<void> confirmDelete(BuildContext context, HomeVm vm) async {
 Future<void> addSongToList(SongExt song, HomeVm vm) async {
   vm.isBusy = true;
   vm.rebuild();
-  await vm.dbRepo.saveListedSong(vm.setListed, song);
+  await vm.db.saveListedSong(vm.setListed, song);
 
   //await fetchData();
   showToast(

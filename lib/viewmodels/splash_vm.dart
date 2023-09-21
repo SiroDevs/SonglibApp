@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import '../repository/db_repository.dart';
 import '../repository/local_storage.dart';
 import '../utils/constants/pref_constants.dart';
-import '../utils/utilities.dart';
+import '../utils/app_utils.dart';
 
 @injectable
 class SplashVm with ChangeNotifier {

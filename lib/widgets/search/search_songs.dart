@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../model/base/songext.dart';
 import '../../theme/theme_colors.dart';
-import '../../utils/utilities.dart';
+import '../../utils/data_utils.dart';
 import '../../viewmodels/home/home_vm.dart';
 import '../general/list_items.dart';
 
@@ -56,7 +56,7 @@ class SearchSongs extends SearchDelegate<List> {
 
     List<SongExt> matchQuery = vm.songs!.where((s) {
       // Check if the song number matches the query (if query is numeric)
-      if (isNumeric(query) && s.songNo == int.parse(query)) {
+      if (DataUtils.isNumeric(query) && s.songNo == int.parse(query)) {
         return true;
       }
 

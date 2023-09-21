@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../navigator/main_navigator.dart';
 import '../../theme/theme_colors.dart';
-import '../../utils/utilities.dart';
+import '../../utils/app_utils.dart';
 import '../../viewmodels/selection/selection_vm.dart';
 import '../../widgets/action/buttons.dart';
 import '../../widgets/general/list_items.dart';

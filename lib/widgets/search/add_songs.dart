@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../model/base/songext.dart';
 import '../../../../theme/theme_colors.dart';
-import '../../utils/utilities.dart';
+import '../../utils/data_utils.dart';
 import '../../viewmodels/home/home_vm.dart';
 import '../../viewmodels/lists/list_view_vm.dart';
 import '../../../../widgets/general/list_items.dart';
@@ -56,7 +56,7 @@ class AddSongs extends SearchDelegate<List> {
 
   Widget searchThis(BuildContext context) {
     List<SongExt> matchQuery = homeVm.songs!.where((s) {
-      return (isNumeric(query) && s.songNo == int.parse(query)) ||
+      return (DataUtils.isNumeric(query) && s.songNo == int.parse(query)) ||
           s.title!.toLowerCase().contains(query.toLowerCase()) ||
           s.alias!.toLowerCase().contains(query.toLowerCase()) ||
           s.content!.toLowerCase().contains(query.toLowerCase());
