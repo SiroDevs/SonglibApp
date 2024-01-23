@@ -7,11 +7,6 @@
         {
             "name": "songlib",
             "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "songlib-dev",
-            "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
             "args": ["--flavor", "dev", "--target", "lib/main.dart" ]
