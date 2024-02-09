@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer' as logger show log;
 
 import 'package:drift/drift.dart';
 import 'package:flutter/foundation.dart';
@@ -7,18 +6,17 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../db/app_database.dart';
-import 'db/setup_drift_none.dart'
-    if (dart.library.io) 'db/setup_drift_io.dart'
-    if (dart.library.js) 'db/setup_drift_web.dart';
+import '../common/data/db/app_database.dart';
+import '../common/data/db/connection/connection.dart' as impl;
+import '../common/utils/logger.dart';
 import 'injectable.config.dart';
 
 final getIt = GetIt.instance;
 
-@InjectableInit(initializerName: r'$initGetIt', generateForDir: ['lib'])
+@InjectableInit(initializerName: r'initGetIt', generateForDir: ['lib'])
 Future<void> configureDependencies(String environment) async {
-  logger.log('Using environment: $environment');
-  await $initGetIt(getIt, environment: environment);
+  logger.i('Using environment: $environment');
+  await getIt.initGetIt(environment: environment);
   await getIt.allReady();
 }
 
@@ -31,7 +29,7 @@ abstract class RegisterModule {
   @singleton
   @preResolve
   Future<DatabaseConnection> provideDatabaseConnection() {
-    return createDriftDatabaseConnection('songlibDatabase');
+    return impl.connect();
   }
 
   @lazySingleton

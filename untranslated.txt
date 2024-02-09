@@ -1,7 +1,0 @@
-{
-  "sw": [
-    "hintsCurrentUpdate",
-    "hintsCurrentUpdateText",
-    "donationRequestReminder"
-  ]
-}
