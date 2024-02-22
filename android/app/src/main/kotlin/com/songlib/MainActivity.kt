@@ -1,4 +1,4 @@
-package com.example.songlib
+package com.songlib
 
 import io.flutter.embedding.android.FlutterActivity
 

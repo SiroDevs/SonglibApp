@@ -7,7 +7,6 @@ import '../../common/data/models/book.dart';
 import '../../common/data/models/lists.dart';
 import '../../common/data/models/song.dart';
 import '../../common/domain/db_repository.dart';
-import '../../di/injectable.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -16,11 +15,11 @@ part 'home_bloc.freezed.dart';
 
 @singleton
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc() : super(const HomeState()) {
+  final DbRepository dbRepo;
+  HomeBloc(this.dbRepo) : super(const HomeState()) {
     on<HomeFetch>(_onFetch);
   }
 
-  var dbRepo = getIt<DbRepository>();
 
   Future<void> _onFetch(
     HomeFetch event,

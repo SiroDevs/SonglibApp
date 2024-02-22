@@ -1,3 +1,4 @@
+import 'dart:developer' as logger show log;
 import 'dart:io';
 
 import 'package:drift/drift.dart';
@@ -16,8 +17,9 @@ Future<File> get databaseFile async {
   if (isDesktop) {
     dbFolder = await getApplicationSupportDirectory();
   }
-  print('Db Path: ${dbFolder.path}');
-  return File(join(dbFolder.path, 'songlibDatabase.sqlite'));
+  var dbPath = join(dbFolder.path, 'songlibDatabase.sqlite');
+  logger.log('Db Path: $dbPath');
+  return File(dbPath);
 }
 
 /// Obtains a database connection for running drift in a Dart VM.

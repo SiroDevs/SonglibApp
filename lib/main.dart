@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'app.dart';
-import 'common/utils/constants/environments.dart';
+import 'common/utils/env/environments.dart';
+import 'common/utils/env/flavor_config.dart';
 import 'common/utils/logger.dart';
 import 'di/injectable.dart';
 
@@ -36,6 +37,15 @@ class AppBlocObserver extends BlocObserver {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = AppBlocObserver();
+  FlavorConfig(
+    flavor: Flavor.dev,
+    name: 'DEV',
+    color: Colors.red,
+    values: const FlavorValues(
+      logNetworkInfo: true,
+      showFullErrorMessages: true,
+    ),
+  );
   logger.i('Starting app from main.dart');
   await configureDependencies(Environments.dev);
   runApp(const App());

@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import '../data/db/dao/book_dao.dart';
 import '../data/models/book.dart';
 
-@singleton
+@lazySingleton
 abstract class DbRepository {
   @factoryMethod
   factory DbRepository(
